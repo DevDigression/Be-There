@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Be There - For Your Career</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+
+<div id="home-page">
+	<form id="city-search">
+		<h2>Find your new city</h2>
+		<p>Search for a new city by career</p>
+		<div class="search">
+		<input id="city-query" type="text" placeholder="Career Field">
+		<button>Search</button>
+		</div>
+	</form>
+	<hr>
+	<form id="career-search">
+		<h2>Find your new career</h2>
+		<p>Search for a new career</p>
+		<div class="search">
+		<input id="career-query" type="text" placeholder="Current Job Title">
+		<button>Search</button>
+		</div>
+	</form>
+</div>
+
+<div id="loc-page" class="no-display">
+	<h1>Find your new location</h1>
+	<div id="map">
+		<img src="http://www.yourchildlearns.com/online-atlas/images/map-of-united-states-2.gif" />
+<!-- 		<div id="tooltip"></div>
+		<svg width="960" height="600" id="statesvg"></svg> -->
+	</div>
+
+	<div id="top-states">
+		<ul id="states-list" class="left"></ul>
+		<img src="https://plot.ly/~cstephens/6/top-10-poultry-states.png" class="right"/>
+	</div>
+	<div id="top-cities">
+		<ul id="cities-list" class="right"></ul>
+		<img src="https://www.wisdomjobs.com/userfiles/city_percentage_legends.jpg" class="left" />
+	</div>
+	<div id="related-careers">
+		<ul id="related-careers-list"></ul>
+	</div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="js/map.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+</body>
+</html>

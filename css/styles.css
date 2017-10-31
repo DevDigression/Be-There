@@ -1,0 +1,203 @@
+h1, h2, h3 {
+	text-align: center;
+}
+
+p {
+	text-align: center;
+}
+
+hr {
+	width: 50%;
+}
+
+form {
+	width: 70%;
+	margin: 50px auto;
+}
+
+button {
+	width: 60px;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	color: gray;
+}
+
+.hidden {
+	visibility: hidden;
+}
+
+.no-display {
+	display: none;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+.search {
+	width: 250px;
+	margin: 10px auto;
+}
+
+#home-page {
+	width: 80%;
+	height: auto;
+	margin: 10% auto;
+}
+
+#loc-page { 
+	width: 95%;
+	margin: 0 auto;
+}
+
+#top-states {
+	width: 95%;
+	height: 300px;
+	margin: 5% auto;
+}
+
+#top-states img {
+	width: 40%;
+	display: inline-block;
+}
+
+#states-list {
+	width: 40%;
+	height: 300px;
+	display: inline-block;
+}
+
+ul {
+	width: 95%;
+	height: 250px;
+	list-style: none;
+	overflow: auto;
+}
+
+#top-cities {
+	width: 95%;
+	height: 300px;
+	margin: 5% auto;
+}
+
+#top-cities img {
+	width: 40%;
+	display: inline-block;
+}
+
+#cities-list {
+	width: 40%;
+	height: 300px;
+	display: inline-block;
+}
+
+#related-careers {
+	width: 95%;
+	height: 400px;
+	margin: 5% auto;
+}
+
+#related-careers-list {
+	width: 80%;
+	height: 300px;
+}
+
+/*MAP*/
+
+.state {
+		fill: none;
+		stroke: #a9a9a9;
+		stroke-width: 1;
+}
+
+.state:hover {
+		fill-opacity:0.5;
+}
+
+#map {
+	width: 960px;
+	margin: 0 auto;
+}
+
+#tooltip {   
+		position: absolute;           
+		text-align: center;
+		padding: 20px;             
+		margin: 10px;
+		font: 12px sans-serif;        
+		background: lightsteelblue;   
+		border: 1px;      
+		border-radius: 2px;           
+		pointer-events: none;         
+}
+
+#tooltip h4{
+		margin:0;
+		font-size:14px;
+}
+
+#tooltip {
+		background:rgba(0,0,0,0.9);
+		border:1px solid grey;
+		border-radius:5px;
+		font-size:12px;
+		width:auto;
+		padding:4px;
+		color:white;
+		opacity:0;
+}
+
+#tooltip table {
+		table-layout:fixed;
+}
+
+#tooltip tr td {
+		padding:0;
+		margin:0;
+}
+
+#tooltip tr td:nth-child(1) {
+		width:50px;
+}
+
+#tooltip tr td:nth-child(2) {
+		text-align:center;
+}
+
+@media(max-width: 768px) {
+form {
+	width: 90%;
+	margin: 20px auto;
+}
+button {
+	width: 100px;
+	margin: 0 auto;
+	display: block;
+}
+
+input {
+	width: 200px;
+	margin: 0 auto;
+	display: block;
+}
+
+.search {
+	width: 90%;
+	margin: 10px auto;
+}
+
+#home-page {
+	width: 90%;
+	height: auto;
+	margin: 10% auto;
+}
+}
