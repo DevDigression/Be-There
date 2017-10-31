@@ -53,6 +53,13 @@ a:hover {
 	color: gray;
 }
 
+ul {
+	width: 95%;
+	height: 250px;
+	list-style: none;
+	overflow: auto;
+}
+
 .hidden {
 	visibility: hidden;
 }
@@ -127,11 +134,9 @@ a:hover {
 /*	display: inline-block;*/
 }
 
-ul {
-	width: 95%;
-	height: 250px;
-	list-style: none;
-	overflow: auto;
+.state-result {
+	font-size: 36px;
+	color: #FFF;
 }
 
 #top-cities {
@@ -152,6 +157,11 @@ ul {
 	width: 30%;
 	height: 300px;
 /*	display: inline-block;*/
+}
+
+.city-result {
+	font-size: 36px;
+	color: #FFF;
 }
 
 #related-careers {
@@ -209,6 +219,11 @@ ul {
 .related-job {
 	margin-top: 30px;
 } 
+
+.related-job button {
+	width: 80px;
+	height: 50px;
+}
 
 /*MAP*/
 

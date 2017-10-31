@@ -29,6 +29,15 @@ $(function() {
 		$('#home-page').addClass('no-display');
 		$('#progression-page').removeClass('no-display');
 		retrieveJobProg(displayCareerProgression);
+
+		$('#jobs-list').on('click', 'button', function(event){
+		userCareerQuery = $(this).closest('.related-job').find('h3').attr('class');
+		console.log(userCareerQuery);
+		$('#progression-page').addClass('no-display');
+		$('#loc-page').removeClass('no-display');
+		retrieveJobStats(displayLocData);
+		retrieveRelatedCareers(displayRelatedCareers);
+	});
 	});
 });
 
@@ -105,8 +114,8 @@ function retrieveJobProg (callback) {
 }
 
 function displayLocData (results) {
-	$('#top-states h3').text(`Top 5 States for ${userCareerQuery}`);
-	$('#top-cities h3').text(`Top 5 Cities for ${userCareerQuery}`);
+	$('#top-states h3').text(`Top 5 States for ${capitalize(userCareerQuery)}`);
+	$('#top-cities h3').text(`Top 5 Cities for ${capitalize(userCareerQuery)}`);
 
 	let cities = results.response.cities;
 	const citiesTopFive = [];
@@ -132,13 +141,13 @@ function displayLocData (results) {
 
 function renderCitiesResults(city) {
 	return `
-		<li>${city.name}</li>
+		<li class="city-result">${city.name}</li>
 		`
 }
 
 function renderStatesResults(state) {
 	return `
-		<li>${state.stateName}</li>
+		<li class="state-result">${state.stateName}</li>
 		`
 }
 
@@ -207,10 +216,11 @@ function displayCareerProgression (results) {
 function renderJobProg(job) {
 	return `
 		<div class="related-job">
-		<h3>${capitalize(job.nextJobTitle)}</h3>
+		<h3 class="${job.nextJobTitle}">${capitalize(job.nextJobTitle)}</h3>
 		<li>Frequency of ${userCurrentCareer}s taking this job: ${Math.round(job.frequencyPercent*100)/100}%</li>
 		<li>Jobs available: ${job.nationalJobCount}</li>
 		<li>Median Salary: $${job.medianSalary}</li>
+		<button class="findJob">Find this Job</button>
 		</div>
 		`
 }
