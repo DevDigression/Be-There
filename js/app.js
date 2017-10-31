@@ -1,34 +1,32 @@
 const GLASSDOOR_URL = "http://api.glassdoor.com/api/api.htm";
 
-let userCareer;
+let userCareerQuery;
+let userCurrentCareer;
 let userCity;
 let userState;
 let stateTotal = 1;
 let nationTotal = 1;
 
 $(function() {
-	$('#city-search').submit(function(event) {
+	$('#loc-search').submit(function(event) {
 		event.preventDefault();
-		userCareer = $('#city-query').val();
-		$('#city-query').val("");
-		// userCity = $('#city').val();
-		// userState = $('#state').val();
-		// userRadius = $('#radius').val();
+		userCareerQuery = $('#loc-query').val();
+		$('#loc-query').val("");
 		$('#home-page').addClass('no-display');
 		$('#loc-page').removeClass('no-display');
 		retrieveJobStats(displayLocData);
 		retrieveRelatedCareers(displayRelatedCareers);
 	});
+
 	$('#career-search').submit(function(event) {
 		event.preventDefault();
-		userCareer = $('#career-query').val();
+
+		userCurrentCareer = $('#career-query').val();
+		console.log(userCurrentCareer);
 		$('#career-query').val("");
-		// userCity = $('#city').val();
-		// userState = $('#state').val();
-		// userRadius = $('#radius').val();
 		$('#home-page').addClass('no-display');
-		$('#loc-page').removeClass('no-display');
-		retrieveJobProg(displayCareerData);
+		$('#progression-page').removeClass('no-display');
+		retrieveJobProg(displayCareerProgression);
 	});
 });
 
@@ -40,7 +38,7 @@ function retrieveJobStats (callback) {
 		"t.k": "dckaIJmhJoa",
 		action: "jobs-stats",
 		// Optional params below
-		q: userCareer,
+		q: userCareerQuery,
 		city: userCity,
 		state: userState,
 		returnCities: true,
@@ -66,7 +64,7 @@ function retrieveRelatedCareers (callback) {
 		"t.k": "dckaIJmhJoa",
 		action: "jobs-stats",
 		// Optional params below
-		q: userCareer,
+		q: userCareerQuery,
 		city: userCity,
 		state: userState,
 		returnCities: true,
@@ -91,7 +89,7 @@ function retrieveJobProg (callback) {
 		"t.p": "213919",
 		"t.k": "dckaIJmhJoa",
 		action: "jobs-prog",
-		jobTitle: userJobQuery,
+		jobTitle: userCurrentCareer,
 		countryId: 1
 	}
 
@@ -100,7 +98,7 @@ function retrieveJobProg (callback) {
 			type: "GET",
 			data: params,
 			dataType: "jsonp",
-			jsonpCallback: "displayCareerData"
+			jsonpCallback: "displayCareerProgression"
 	});
 }
 
@@ -178,4 +176,27 @@ function addStateJobs(results) {
 
   	// uStates.draw('#statesvg', calculateSampleData(stateAbb), tooltipHtml);
    	return stateCount;
+}
+
+function displayCareerProgression (results) {
+	console.log(results);
+	$('#progression-page h2').text(`Check out these career options related to \"${capitalize(userCurrentCareer)}\"`);
+	let jobs = results.response.results;
+	const jobsProg = [];
+	for (let i = 0; i < 5; i++) {
+		console.log(jobs[i]);
+		jobsProg.push(jobs[i]);
+	}
+	const jobsList = jobsProg.map((item, index) => renderJobProg(item));
+	$('#jobs-list').html(jobsList);
+}
+
+function renderJobProg(job) {
+	return `
+		<li>${job.nextJobTitle}</li>
+		`
+}
+
+function capitalize (string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }
