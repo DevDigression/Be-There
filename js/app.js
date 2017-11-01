@@ -1,4 +1,4 @@
-const GLASSDOOR_URL = "http://api.glassdoor.com/api/api.htm";
+const GLASSDOOR_URL = "https://api.glassdoor.com/api/api.htm";
 
 let userCareerQuery;
 let userCurrentCareer;
@@ -128,7 +128,6 @@ function displayLocData (results) {
 		return state2.jobs - state1.jobs; 
 	});
 	const statesTopFive = topFiveStates.slice(0, 5);
-	console.log(statesTopFive);
 	const statesList = statesTopFive.map((item, index) => renderStatesResults(item));
 		$('#states-list').html(statesList);
 
@@ -137,16 +136,12 @@ function displayLocData (results) {
 	for (let i = 0; i < 5; i++) {
 		citiesTopFive.push(cities[i]);
 	}
-	console.log(citiesTopFive);
 	const citiesList = citiesTopFive.map((item, index) => renderCitiesResults(item));
 		$('#cities-list').html(citiesList);
 }
 
 function renderCitiesResults(city) {
 	let cityState = city.stateName;
-	console.log(city.numJobs);
-	console.log(stateCount);
-	console.log(stateCount[cityState]);
 	return `
 		<li class="city-result">${city.name} - ${city.numJobs} Jobs 
 		(${Math.round((city.numJobs/stateCount[cityState])*100)}% of ${cityState})</li>
@@ -161,8 +156,6 @@ function renderStatesResults(state) {
 }
 
 function displayRelatedCareers (results) {
-	console.log(results);
-
 	$('#related-careers h3').text("Jobs related to " + userCareerQuery);
 	let careers = results.response.jobTitles;
 	
@@ -203,16 +196,13 @@ function addStateJobs(results) {
     		nationTotal += state.numJobs;
   	}
   }
+  	
+  uStates.draw('#statesvg', calculateSampleData(stateAbb), tooltipHtml);
 
-  	console.log(stateCount);
-  	console.log(stateAbb);
-  	uStates.draw('#statesvg', calculateSampleData(stateAbb), tooltipHtml);
-  	// return stateAbb;
    	return stateCount;
 }
 
 function displayCareerProgression (results) {
-	console.log(results);
 	$('#progression-page h2').text(`Check out these career options related to ${capitalize(userCurrentCareer)}`);
 	let jobs = results.response.results;
 	const jobsProg = [];
@@ -254,7 +244,6 @@ function tooltipHtml(n, d) {	/* function to create html content string in toolti
 			<tr><td>National</td><td>${nationTotal}</td></tr>
 			</table>`;
 }
-
 
 function calculateSampleData (stateTotals) {
 let sampleData = {};	
