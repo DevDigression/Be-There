@@ -221,6 +221,7 @@ function renderJobProg(job) {
 		<li>Jobs available: ${job.nationalJobCount}</li>
 		<li>Median Salary: $${job.medianSalary}</li>
 		<button class="findJob">Find this Job</button>
+		<hr>
 		</div>
 		`
 }
