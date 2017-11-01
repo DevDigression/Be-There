@@ -117,14 +117,6 @@ function retrieveJobProg (callback) {
 function displayLocData (results) {
 	$('#top-states h3').text(`Top 5 States for ${capitalize(userCareerQuery)}`);
 	$('#top-cities h3').text(`Top 5 Cities for ${capitalize(userCareerQuery)}`);
-
-	let cities = results.response.cities;
-	const citiesTopFive = [];
-	for (let i = 0; i < 5; i++) {
-		citiesTopFive.push(cities[i]);
-	}
-	const citiesList = citiesTopFive.map((item, index) => renderCitiesResults(item));
-		$('#cities-list').html(citiesList);
 	
 	const stateResults = addStateJobs(results);
 	let topFiveStates = Object.keys(stateResults).map(function(state) {
@@ -136,19 +128,35 @@ function displayLocData (results) {
 		return state2.jobs - state1.jobs; 
 	});
 	const statesTopFive = topFiveStates.slice(0, 5);
+	console.log(statesTopFive);
 	const statesList = statesTopFive.map((item, index) => renderStatesResults(item));
 		$('#states-list').html(statesList);
+
+	let cities = results.response.cities;
+	const citiesTopFive = [];
+	for (let i = 0; i < 5; i++) {
+		citiesTopFive.push(cities[i]);
+	}
+	console.log(citiesTopFive);
+	const citiesList = citiesTopFive.map((item, index) => renderCitiesResults(item));
+		$('#cities-list').html(citiesList);
 }
 
 function renderCitiesResults(city) {
+	let cityState = city.stateName;
+	console.log(city.numJobs);
+	console.log(stateCount);
+	console.log(stateCount[cityState]);
 	return `
-		<li class="city-result">${city.name}</li>
+		<li class="city-result">${city.name} - ${city.numJobs} Jobs 
+		(${Math.round((city.numJobs/stateCount[cityState])*100)}% of ${cityState})</li>
 		`
 }
 
 function renderStatesResults(state) {
 	return `
-		<li class="state-result">${state.stateName}</li>
+		<li class="state-result">${state.stateName} - ${state.jobs} Jobs 
+		(${Math.round((state.jobs/nationTotal)*100)}%)</li>
 		`
 }
 
@@ -260,8 +268,6 @@ let sampleData = {};
 				color: d3.interpolate('#ffffcc', '#009999')((stateTotals[state]*10) / nationTotal)
 			}; 
 	});
-		console.log("sampleData:");
-		console.log(sampleData);
 		return sampleData;
 }
 	
