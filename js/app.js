@@ -6,6 +6,7 @@ let userCity;
 let userState;
 let stateTotal = 1;
 let nationTotal = 1;
+let stateCount = {};
 
 $(function() {
 	$('#loc-search').submit(function(event) {
@@ -169,7 +170,7 @@ function renderRelatedCareers(result) {
 
 function addStateJobs(results) {
 	let statesList = results.response.cities;
-	let stateCount = {};
+	
 	let stateAbb = {};
 	if (userCity == "" && userState == "") {
 			for (let state of statesList) {
@@ -196,7 +197,9 @@ function addStateJobs(results) {
   }
 
   	console.log(stateCount);
-  	// uStates.draw('#statesvg', calculateSampleData(stateAbb), tooltipHtml);
+  	console.log(stateAbb);
+  	uStates.draw('#statesvg', calculateSampleData(stateAbb), tooltipHtml);
+  	// return stateAbb;
    	return stateCount;
 }
 
@@ -229,3 +232,39 @@ function renderJobProg(job) {
 function capitalize (string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+// window.setTimeout(function(){
+// 	stateTotal = 4000;
+// 	uStates.draw('#statesvg', calculateSampleData(), tooltipHtml);
+// 	d3.select(self.frameElement).style('height', '600px'); 
+// }, 3000);
+
+function tooltipHtml(n, d) {	/* function to create html content string in tooltip div. */
+	return `<h4>${n}</h4><table>
+			<tr><td>Jobs</td></tr>
+			<tr><td>State</td><td>${stateCount[n]}</td></tr>
+			<tr><td>National</td><td>${nationTotal}</td></tr>
+			</table>`;
+}
+
+
+function calculateSampleData (stateTotals) {
+let sampleData = {};	
+	["HI", "AK", "FL", "SC", "GA", "AL", "NC", "TN", "RI", "CT", "MA",
+	"ME", "NH", "VT", "NY", "NJ", "PA", "DE", "MD", "WV", "KY", "OH", 
+	"MI", "WY", "MT", "ID", "WA", "DC", "TX", "CA", "AZ", "NV", "UT", 
+	"CO", "NM", "OR", "ND", "SD", "NE", "IA", "MS", "IN", "IL", "MN",
+	"WI", "MO", "AR", "OK", "KS", "LA", "VA"]
+		.forEach(function(state) { 
+			sampleData[state] = {
+				color: d3.interpolate('#ffffcc', '#009999')((stateTotals[state]*10) / nationTotal)
+			}; 
+	});
+		console.log("sampleData:");
+		console.log(sampleData);
+		return sampleData;
+}
+	
+/* draw states on id #statesvg */	
+// uStates.draw('#statesvg', calculateSampleData(1), tooltipHtml);	
+d3.select(self.frameElement).style('height', '600px'); 
