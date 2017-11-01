@@ -176,7 +176,7 @@ ul {
 }
 
 #cities-list {
-	width: 60%;
+	width: 30%;
 	height: 400px;
 /*	display: inline-block;*/
 }
@@ -304,6 +304,21 @@ ul {
 
 #tooltip tr td:nth-child(2) {
 		text-align:center;
+}
+
+/***************************************************************/
+
+#chart1 {
+	width: 50%;
+}
+
+#chart1 rect {
+  fill: #f17f49; 
+  stroke:#f17f49; 
+}
+#chart1 svg { 
+	width:100%; 
+	height:30%;
 }
 
 

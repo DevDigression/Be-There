@@ -263,3 +263,54 @@ let sampleData = {};
 /* draw states on id #statesvg */	
 // uStates.draw('#statesvg', calculateSampleData(1), tooltipHtml);	
 d3.select(self.frameElement).style('height', '600px'); 
+
+
+
+
+
+historicalBarChart = [ 
+  {
+    key: "Cumulative Return",
+    values: []
+  }
+];
+
+for(var i =0; i<8; i++){
+  var date = new Date();
+  date.setTime(date.getTime() + i*1000*3600*24);
+  historicalBarChart[0].values.push({
+    'date': date.toISOString(),
+    'value': Math.floor(Math.random()*10)
+  });
+}
+
+
+nv.addGraph(function() {  
+  var chart = nv.models.discreteBarChart()
+      .x(function(d) { return d.date })
+      .y(function(d) { return d.value })
+      .staggerLabels(false)
+      .tooltips(true)
+      .showValues(false)
+      .transitionDuration(250);
+
+  chart.xAxis
+      .tickFormat(function(d) {
+          return d3.time.format('%e/%m')(new Date(d));
+      });
+
+  chart.yAxis
+  
+  
+
+  
+  d3.select('#chart1 svg')
+      .datum(historicalBarChart)
+      .call(chart);
+
+  nv.utils.windowResize(chart.update);
+
+  return chart;
+});
+ setTimeout(function() {
+ 	window.dispatchEvent(new Event('resize'))}, 3000);

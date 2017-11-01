@@ -4,6 +4,7 @@
 	<title>Be There - For Your Career</title>
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
 	<link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.1.13-beta/nv.d3.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
@@ -39,7 +40,6 @@
 <div id="loc-page" class="no-display">
 	<h2>Find your new location</h2>
 	<div id="map">
-<!-- 		<img src="http://www.yourchildlearns.com/online-atlas/images/map-of-united-states-2.gif" /> -->
 		<div id="tooltip"></div>
 		<svg width="960" height="600" id="statesvg"></svg>
 	</div>
@@ -52,7 +52,7 @@
 	<div id="top-cities">
 		<h3></h3>
 		<ul id="cities-list" class="right"></ul>
-		<img src="https://www.wisdomjobs.com/userfiles/city_percentage_legends.jpg" class="left" />
+		<div id='chart1'><svg></div>
 	</div>
 	<div id="related-careers">
 		<h3></h3>
@@ -72,6 +72,7 @@
 <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
 <script src="https://d3js.org/d3.v3.min.js"></script>
 <script src="js/map.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.1.13-beta/nv.d3.min.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
 </body>
 </html>
