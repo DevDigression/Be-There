@@ -328,7 +328,7 @@ nv.addGraph(function() {
   var chart = nv.models.discreteBarChart()
       .x(function(d) { return d.date })
       .y(function(d) { return d.value })
-      .staggerLabels(false)
+      .staggerLabels(true)
       .tooltips(true)
       .showValues(false)
       .transitionDuration(250);
@@ -376,7 +376,7 @@ nv.addGraph(function() {
   var chart = nv.models.discreteBarChart()
       .x(function(d) { return d.date })
       .y(function(d) { return d.value })
-      .staggerLabels(false)
+      .staggerLabels(true)
       .tooltips(true)
       .showValues(false)
       .transitionDuration(250);
@@ -400,7 +400,7 @@ nv.addGraph(function() {
   var chart = nv.models.discreteBarChart()
       .x(function(d) { return d.date })
       .y(function(d) { return d.value })
-      .staggerLabels(false)
+      .staggerLabels(true)
       .tooltips(true)
       .showValues(false)
       .transitionDuration(250);
