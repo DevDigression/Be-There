@@ -8,6 +8,27 @@ let stateTotal = 1;
 let nationTotal = 1;
 let stateCount = {};
 
+historicalBarChart = [
+  {
+    key: "Cumulative Return",
+    values: []
+  }
+];
+
+jobsBarChart = [
+  {
+    key: "Cumulative Return",
+    values: []
+  }
+];
+
+salaryBarChart = [
+  {
+    key: "Cumulative Return",
+    values: []
+  }
+];
+
 $(function() {
 	$('#loc-search').submit(function(event) {
 		event.preventDefault();
@@ -131,11 +152,23 @@ function displayLocData (results) {
 	const statesList = statesTopFive.map((item, index) => renderStatesResults(item));
 		$('#states-list').html(statesList);
 
+	const topFiveStatesList = statesTopFive.map((item, index) => topStates(item));
+	renderStatesChart(topFiveStatesList);
+
 	let cities = results.response.cities;
 	const citiesTopFive = [];
 	for (let i = 0; i < 5; i++) {
 		citiesTopFive.push(cities[i]);
+		historicalBarChart[0].values.push({
+    		'date': cities[i].name,
+    		'value': cities[i].numJobs
+  		});
 	}
+	renderCitiesChart();
+
+	$('#states-chart-title').text("Number of Jobs by State");
+	$('#cities-chart-title').text("Number of Jobs by City");
+
 	const citiesList = citiesTopFive.map((item, index) => renderCitiesResults(item));
 		$('#cities-list').html(citiesList);
 }
@@ -209,7 +242,21 @@ function displayCareerProgression (results) {
 	for (let i = 0; i < 5; i++) {
 		console.log(jobs[i]);
 		jobsProg.push(jobs[i]);
+		jobsBarChart[0].values.push({
+    		'date': jobs[i].nextJobTitle,
+    		'value': jobs[i].nationalJobCount
+  		});
+  		salaryBarChart[0].values.push({
+    		'date': jobs[i].nextJobTitle,
+    		'value': jobs[i].medianSalary
+  		});
 	}
+
+	$('#jobs-chart-title').text("National Job Count");
+	$('#salary-chart-title').text("Median Salary");
+
+	renderJobsChart();
+	renderSalaryChart();
 	const jobsList = jobsProg.map((item, index) => renderJobProg(item));
 	$('#jobs-list').html(jobsList);
 }
@@ -266,25 +313,7 @@ d3.select(self.frameElement).style('height', '600px');
 
 
 
-
-
-historicalBarChart = [ 
-  {
-    key: "Cumulative Return",
-    values: []
-  }
-];
-
-for(var i =0; i<8; i++){
-  var date = new Date();
-  date.setTime(date.getTime() + i*1000*3600*24);
-  historicalBarChart[0].values.push({
-    'date': date.toISOString(),
-    'value': Math.floor(Math.random()*10)
-  });
-}
-
-
+function renderCitiesChart() {
 nv.addGraph(function() {  
   var chart = nv.models.discreteBarChart()
       .x(function(d) { return d.date })
@@ -295,16 +324,10 @@ nv.addGraph(function() {
       .transitionDuration(250);
 
   chart.xAxis
-      .tickFormat(function(d) {
-          return d3.time.format('%e/%m')(new Date(d));
-      });
 
   chart.yAxis
-  
-  
-
-  
-  d3.select('#chart1 svg')
+ 
+  d3.select('#cities-chart svg')
       .datum(historicalBarChart)
       .call(chart);
 
@@ -312,5 +335,76 @@ nv.addGraph(function() {
 
   return chart;
 });
- setTimeout(function() {
- 	window.dispatchEvent(new Event('resize'))}, 3000);
+}
+
+
+function topStates(states) {
+  return  { 
+        "state": states.stateName,
+        "jobs" : states.jobs
+      }
+}
+
+function renderStatesChart(topFiveStates) {
+nv.addGraph(function() {
+  var chart = nv.models.pieChart()
+      .x(function(d) { return d.state })
+      .y(function(d) { return d.jobs })
+      .showLabels(true);
+
+    d3.select("#states-chart svg")
+        .datum(topFiveStates)
+        .transition().duration(350)
+        .call(chart);
+
+  return chart;
+});
+}
+
+function renderJobsChart() {
+nv.addGraph(function() {  
+  var chart = nv.models.discreteBarChart()
+      .x(function(d) { return d.date })
+      .y(function(d) { return d.value })
+      .staggerLabels(false)
+      .tooltips(true)
+      .showValues(false)
+      .transitionDuration(250);
+
+  chart.xAxis
+
+  chart.yAxis
+ 
+  d3.select('#jobs-chart svg')
+      .datum(jobsBarChart)
+      .call(chart);
+
+  nv.utils.windowResize(chart.update);
+
+  return chart;
+});
+}
+
+function renderSalaryChart() {
+nv.addGraph(function() {  
+  var chart = nv.models.discreteBarChart()
+      .x(function(d) { return d.date })
+      .y(function(d) { return d.value })
+      .staggerLabels(false)
+      .tooltips(true)
+      .showValues(false)
+      .transitionDuration(250);
+
+  chart.xAxis
+
+  chart.yAxis
+ 
+  d3.select('#salary-chart svg')
+      .datum(salaryBarChart)
+      .call(chart);
+
+  nv.utils.windowResize(chart.update);
+
+  return chart;
+});
+}
