@@ -135,7 +135,7 @@ ul {
 }
 
 #loc-page { 
-	width: 95%;
+	width: 80%;
 	margin: 20px auto;
 }
 
@@ -150,17 +150,16 @@ ul {
 	display: block;
 }
 
-/*#top-states img {
-	width: 30%;
-	height: 250px;
-	margin: 0 auto;
-	display: inline-block;
-}*/
+#top-states li {
+	font-size: 24px;
+}
 
 #states-list {
 	width: 50%;
 	height: 400px;
 	display: inline-block;
+	margin-top: 50px;
+	padding: 0;
 }
 
 .state-result {
@@ -175,10 +174,15 @@ ul {
 /*	display: block;*/
 }
 
+#top-cities li {
+	font-size: 24px;
+}
+
 #cities-list {
-	width: 400px;
+	width: 50%;
 	height: 400px;
 	display: inline-block;
+	margin-top: 50px;
 }
 
 .city-result {
@@ -189,14 +193,14 @@ ul {
 #related-careers {
 	width: 100%;
 	height: 400px;
-	margin: 100px auto;
+	margin: 100px auto 0 auto;
 	clear: both;
 	display: block;
 }
 
 #related-careers-list {
-	border: 2px solid #898989;
-	width: 80%;
+	border: 3px solid #898989;
+	width: 60%;
 	height: 300px;
 	margin: 20px auto;
 	display: block;
@@ -212,7 +216,7 @@ ul {
 }
 
 #progression-page { 
-	width: 100%;
+	width: 80%;
 	margin: 5% auto;
 }
 
@@ -240,12 +244,31 @@ ul {
 
 .related-job {
 	margin-top: 30px;
-} 
+	background: #FFF;
+	border: 2px solid #000;
+}
+
+.related-job h3 {
+	color: #000;
+}  
 
 .findJob {
 	width: 100px;
 	height: 35px;
-	margin-top: 20px;
+	margin: 20px auto;
+}
+
+.new-search {
+	width: 100%;
+	margin: 0 auto;
+	clear: both;
+}
+
+.new-search button {
+	width: 100px;
+	height: 35px;
+	display: block;
+	margin: 0 auto 50px auto;
 }
 
 /*MAP*/
@@ -306,34 +329,36 @@ ul {
 }
 
 #states-graph {
+	width: 40%;
 	text-align: center;
 }
 
 #states-chart {
-	width: 40%;
+	width: 100%;
 }
 
 #states-chart svg { 
-	width: 500px; 
-	height: 300px;
+	width: 100%;
+	height: 300px; 
 	display: inline-block;
 }
 
 #cities-graph {
+	width: 40%;
 	text-align: center;
 }
 
 #cities-chart {
-	width: 40%;
+	width: 100%;
 }
 
 #cities-chart rect {
-  fill: #f17f49; 
-  stroke: #f17f49; 
+  fill: #F17F49; 
+  stroke: #F17F49; 
 }
 
 #cities-chart svg { 
-	width: 500px; 
+	width: 100%; 
 	height: 300px;
 	display: inline-block;
 }
@@ -387,22 +412,19 @@ input {
 	display: block;
 }
 
+#loc-page {
+	margin-top: 50px;
+}
+
 #top-cities, #top-states, #related-careers {
 	display: block;
 	width: 100%;
-	margin: 10px auto;
 }
 
-#top-cities img, #top-states img, #related-careers img {
+#cities-list, #states-list {
 	display: block;
-	width: 95%;
-	margin: 10px auto;
-}
-
-#top-cities ul, #top-states ul/*, #related-careers ul */{
-	display: block;
-	width: 95%;
-	margin: 10px auto;
+	width: 100%;
+	height: 250px;
 	text-align: center;
 }
 
@@ -417,6 +439,42 @@ input {
 	margin: 10% auto;
 }
 
+#states-graph {
+	width: 100%;
+	text-align: center;
+	display: block;
+	margin: 0;
+}
+
+#states-chart {
+	width: 100%;
+	display: block;
+}
+
+#states-chart svg { 
+	width: 100%; 
+	height: 300px;
+	display: block;
+}
+
+#cities-graph {
+	width: 100%;
+	text-align: center;
+	margin: 10px auto;
+	display: block;
+}
+
+#cities-chart {
+	width: 100%;
+	display: block;
+}
+
+#cities-chart svg { 
+	width: 100%; 
+	height: 300px;
+	display: inline-block;
+}
+
 #jobs-progression {
 	width: 100%;
 	height: auto
@@ -429,25 +487,6 @@ input {
 	width: 100%;
 	height: auto;
 	list-style: none;
-}
-
-#cities-chart {
-	width: 300px;
-	display: block;
-}
-
-#cities-graph {
-	text-align: center;
-}
-
-#states-graph {
-	text-align: center;
-}
-
-#cities-chart svg { 
-	width: 100%; 
-	height: 300px;
-	display: block;
 }
 
 #jobs-progression-charts {

@@ -39,6 +39,12 @@ $(function() {
 		$('#loc-page').removeClass('no-display');
 		retrieveJobStats(displayLocData);
 		retrieveRelatedCareers(displayRelatedCareers);
+
+		$('.new-search button').on('click', function(){
+			$('#loc-page').addClass('no-display');
+			$('#home-page-header').removeClass('no-display');
+			$('#home-page').removeClass('no-display');
+		});
 	});
 
 	$('#career-search').submit(function(event) {
@@ -60,6 +66,11 @@ $(function() {
 		retrieveJobStats(displayLocData);
 		retrieveRelatedCareers(displayRelatedCareers);
 	});
+		$('.new-search button').on('click', function(){
+			$('#progression-page').addClass('no-display');
+			$('#home-page-header').removeClass('no-display');
+			$('#home-page').removeClass('no-display');
+		});
 	});
 });
 
@@ -269,7 +280,6 @@ function renderJobProg(job) {
 		<li>Jobs available: ${job.nationalJobCount}</li>
 		<li>Median Salary: $${job.medianSalary}</li>
 		<button class="findJob">Find this Job</button>
-		<hr>
 		</div>
 		`
 }
