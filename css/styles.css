@@ -100,13 +100,13 @@ ul {
 	margin: 10px auto;
 }
 
-.new-search {
+#new-loc-search, #new-career-search {
 	width: 100%;
 	margin: 0 auto;
 	clear: both;
 }
 
-.new-search button {
+#new-loc-search button, #new-career-search button {
 	width: 100px;
 	height: 35px;
 	display: block;
@@ -129,25 +129,6 @@ ul {
 	color: #000;
 }
 
-#map {
-	width: 960px;
-	margin: 20px auto;
-}
-
-#map svg {
-	width: 960px;
-	margin: 0 auto;
-}
-
-#tooltip {
-	width: 100%;
-	margin: 0 auto;
-}
-
-#map img {
-	width: 95%;
-	margin: 10px auto;
-}
 
 /*********************** Locations Page / Map *************************/
 
@@ -242,7 +223,21 @@ ul {
 	color: #000;
 }  
 
-/**** MAP *****/
+/************* MAP **************/
+
+#map {
+	width: 960px;
+	margin: 20px auto;
+}
+
+#map svg {
+	width: 960px;
+}
+
+#tooltip {
+	width: 100%;
+	margin: 0 auto;
+}
 
 .state {
 		fill: none;
@@ -266,40 +261,40 @@ ul {
 		pointer-events: none;         
 }
 
-#tooltip h4{
+#tooltip h4 {
 		margin:0;
 		font-size:14px;
 }
 
 #tooltip {
-		background:rgba(0,0,0,0.9);
-		border:1px solid grey;
-		border-radius:5px;
-		font-size:12px;
-		width:auto;
-		padding:4px;
-		color:white;
-		opacity:0;
+		background: rgba(0,0,0,0.9);
+		border: 1px solid grey;
+		border-radius: 5px;
+		font-size: 12px;
+		width: auto;
+		padding: 4px;
+		color: white;
+		opacity: 0;
 }
 
 #tooltip table {
-		table-layout:fixed;
+		table-layout: fixed;
 }
 
 #tooltip tr td {
-		padding:0;
-		margin:0;
+		padding: 0;
+		margin: 0;
 }
 
 #tooltip tr td:nth-child(1) {
-		width:50px;
+		width: 50px;
 }
 
 #tooltip tr td:nth-child(2) {
-		text-align:center;
+		text-align: center;
 }
 
-/**** CHARTS ****/
+/************* CHARTS **************/
 
 #states-graph {
 	width: 40%;
@@ -344,9 +339,8 @@ ul {
 }
 
 #progression-page h2 {
-	color: #FFF;
+	font-size: 48px;
 }
-
 
 #jobs-progression {
 	width: 100%;
@@ -370,11 +364,7 @@ ul {
 	margin: 20px auto;
 }
 
-/**** CHARTS ****/
-
-#progression-page h2 {
-	font-size: 48px;
-}
+/************* CHARTS **************/
 
 #jobs-progression-charts {
 	text-align: center;
@@ -404,13 +394,15 @@ ul {
 }
 
 
-
+/******************************* MEDIA QUERIES ********************************/
 
 @media(max-width: 768px) {
+
 form {
 	width: 90%;
 	margin: 20px auto;
 }
+
 button {
 	width: 100px;
 	margin: 0 auto;
@@ -421,6 +413,23 @@ input {
 	width: 200px;
 	margin: 0 auto;
 	display: block;
+}
+
+.search {
+	width: 90%;
+	margin: 10px auto;
+}
+
+#home-page {
+	width: 90%;
+	height: auto;
+	margin: 10% auto;
+}
+
+/********************** Location Page *************************/
+
+#statesvg {
+
 }
 
 #loc-page {
@@ -437,17 +446,6 @@ input {
 	width: 100%;
 	height: 250px;
 	text-align: center;
-}
-
-.search {
-	width: 90%;
-	margin: 10px auto;
-}
-
-#home-page {
-	width: 90%;
-	height: auto;
-	margin: 10% auto;
 }
 
 #states-graph {
@@ -485,6 +483,8 @@ input {
 	height: 300px;
 	display: inline-block;
 }
+
+/********************** Jobs Progression Page *************************/
 
 #jobs-progression {
 	width: 100%;

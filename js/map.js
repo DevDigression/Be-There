@@ -68,7 +68,15 @@ uStates.draw = function(id, data, toolTip) {
 		d3.select('#tooltip').transition().duration(500).style('opacity', 0);      
 	}
 		
-		d3.select(id).selectAll('.state')
+	function resize() {
+		const position = $(id).position();
+		const width = window.innerWidth - position.left * 2;
+		const scale = Math.min(1, width/927);
+		const height = (588*scale);
+		d3.select(id).attr('width', width+'px').attr('height', height+'px');
+		d3.select('#canvas').attr('transform', 'scale('+scale+')');
+	}
+		d3.select(id).select('#canvas').selectAll('.state')
 			.data(uStatePaths).enter().append('path').attr('class','state').attr('d', function(d) { 
 			return d.d;
 			})
@@ -76,6 +84,8 @@ uStates.draw = function(id, data, toolTip) {
 				return data[d.id].color; 
 			})
 			.on('mouseover', mouseOver).on('mouseout', mouseOut);
+			resize();
+			$(window).on('resize', resize);
 	}
 	this.uStates = uStates;
 })();

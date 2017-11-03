@@ -4,11 +4,12 @@ let userCareerQuery;
 let userCurrentCareer;
 let userCity;
 let userState;
-let stateTotal = 1;
-let nationTotal = 1;
+let stateTotal = 0;
+let nationTotal = 0;
 let stateCount = {};
+let stateAbb = {};
 
-historicalBarChart = [
+citiesBarChart = [
   {
     key: "Cumulative Return",
     values: []
@@ -40,7 +41,13 @@ $(function() {
 		retrieveJobStats(displayLocData);
 		retrieveRelatedCareers(displayRelatedCareers);
 
-		$('.new-search button').on('click', function(){
+		$('#new-loc-search button').on('click', function(){
+			nationTotal = 0;
+			stateCount = {};
+			stateAbb = {};
+			citiesBarChart[0].values = [];
+			jobsBarChart[0].values = [];
+			salaryBarChart[0].values = [];
 			$('#loc-page').addClass('no-display');
 			$('#home-page-header').removeClass('no-display');
 			$('#home-page').removeClass('no-display');
@@ -49,7 +56,7 @@ $(function() {
 
 	$('#career-search').submit(function(event) {
 		event.preventDefault();
-
+		console.log(userCurrentCareer);
 		userCurrentCareer = $('#career-query').val();
 		console.log(userCurrentCareer);
 		$('#career-query').val("");
@@ -59,19 +66,26 @@ $(function() {
 		retrieveJobProg(displayCareerProgression);
 
 		$('#jobs-list').on('click', 'button', function(event){
-		userCareerQuery = $(this).closest('.related-job').find('h3').attr('class');
-		console.log(userCareerQuery);
-		$('#progression-page').addClass('no-display');
-		$('#loc-page').removeClass('no-display');
-		retrieveJobStats(displayLocData);
-		retrieveRelatedCareers(displayRelatedCareers);
-	});
-		$('.new-search button').on('click', function(){
+			userCareerQuery = $(this).closest('.related-job').find('h3').attr('class');
+			console.log(userCareerQuery);
+			$('#progression-page').addClass('no-display');
+			$('#loc-page').removeClass('no-display');
+			retrieveJobStats(displayLocData);
+			retrieveRelatedCareers(displayRelatedCareers);
+		});
+		$('#new-career-search button').on('click', function(){
+			nationTotal = 0;
+			stateCount = {};
+			stateAbb = {};
+			citiesBarChart[0].values = [];
+			jobsBarChart[0].values = [];
+			salaryBarChart[0].values = [];
 			$('#progression-page').addClass('no-display');
 			$('#home-page-header').removeClass('no-display');
 			$('#home-page').removeClass('no-display');
 		});
 	});
+	
 });
 
 function retrieveJobStats (callback) {
@@ -99,6 +113,9 @@ function retrieveJobStats (callback) {
 			jsonpCallback: "displayLocData"
 	});
 }
+
+// TODO:
+// Check arguments - callback
 
 function retrieveRelatedCareers (callback) {
 	const params = {
@@ -170,7 +187,7 @@ function displayLocData (results) {
 	const citiesTopFive = [];
 	for (let i = 0; i < 5; i++) {
 		citiesTopFive.push(cities[i]);
-		historicalBarChart[0].values.push({
+		citiesBarChart[0].values.push({
     		'date': cities[i].name,
     		'value': cities[i].numJobs
   		});
@@ -216,7 +233,6 @@ function renderRelatedCareers(result) {
 function addStateJobs(results) {
 	let statesList = results.response.cities;
 	
-	let stateAbb = {};
 	if (userCity == "" && userState == "") {
 			for (let state of statesList) {
     		if (!stateCount[state.stateName] && !stateAbb[state.stateAbbreviation]) {
@@ -338,7 +354,7 @@ nv.addGraph(function() {
   chart.yAxis
  
   d3.select('#cities-chart svg')
-      .datum(historicalBarChart)
+      .datum(citiesBarChart)
       .call(chart);
 
   nv.utils.windowResize(chart.update);
