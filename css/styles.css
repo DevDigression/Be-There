@@ -100,13 +100,13 @@ ul {
 	margin: 10px auto;
 }
 
-#new-loc-search, #new-career-search {
+#new-loc-search, #new-career-search, #re-search {
 	width: 100%;
 	margin: 0 auto;
 	clear: both;
 }
 
-#new-loc-search button, #new-career-search button {
+#new-loc-search button, #new-career-search button, #re-search button {
 	width: 100px;
 	height: 35px;
 	display: block;
@@ -393,6 +393,20 @@ ul {
 	display: inline-block;
 }
 
+/******************************* ERROR PAGE ********************************/
+
+#error-page {
+	width: 80%;
+	height: auto;
+	margin: 10% auto;
+	border: 2px solid black;
+	border-radius: 5px;
+	background: #FFF;
+}
+
+#error-page h2 {
+	color: #000;
+}
 
 /******************************* MEDIA QUERIES ********************************/
 
@@ -428,8 +442,13 @@ input {
 
 /********************** Location Page *************************/
 
-#statesvg {
+#map {
+	max-width: 100%;
+	margin: 0 auto;
+}
 
+#map svg {
+	max-width: 100%;
 }
 
 #loc-page {
@@ -452,7 +471,7 @@ input {
 	width: 100%;
 	text-align: center;
 	display: block;
-	margin: 0;
+	margin: 0 auto;
 }
 
 #states-chart {

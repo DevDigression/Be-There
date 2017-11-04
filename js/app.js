@@ -52,6 +52,19 @@ $(function() {
 			$('#home-page-header').removeClass('no-display');
 			$('#home-page').removeClass('no-display');
 		});
+		$('#re-search button').on('click', function(){
+			nationTotal = 0;
+			stateCount = {};
+			stateAbb = {};
+			citiesBarChart[0].values = [];
+			jobsBarChart[0].values = [];
+			salaryBarChart[0].values = [];
+			$('#loc-page').addClass('no-display');
+			$('#progression-page').addClass('no-display');
+			$('#error-page').addClass('no-display');
+			$('#home-page-header').removeClass('no-display');
+			$('#home-page').removeClass('no-display');
+		});
 	});
 
 	$('#career-search').submit(function(event) {
@@ -81,6 +94,19 @@ $(function() {
 			jobsBarChart[0].values = [];
 			salaryBarChart[0].values = [];
 			$('#progression-page').addClass('no-display');
+			$('#home-page-header').removeClass('no-display');
+			$('#home-page').removeClass('no-display');
+		});
+		$('#re-search button').on('click', function(){
+			nationTotal = 0;
+			stateCount = {};
+			stateAbb = {};
+			citiesBarChart[0].values = [];
+			jobsBarChart[0].values = [];
+			salaryBarChart[0].values = [];
+			$('#loc-page').addClass('no-display');
+			$('#progression-page').addClass('no-display');
+			$('#error-page').addClass('no-display');
 			$('#home-page-header').removeClass('no-display');
 			$('#home-page').removeClass('no-display');
 		});
@@ -164,9 +190,17 @@ function retrieveJobProg (callback) {
 }
 
 function displayLocData (results) {
+	let jobs = results.response.jobTitles;
+	
+	if (!jobs.length) {	
+		$('#loc-page').addClass('no-display');
+		$('#error-page').removeClass('no-display');
+		$('#error-page h2').text(`Sorry, no results found for ${userCareerQuery}. 
+			Please try searching again.`);
+	} else {
 	$('#top-states h3').text(`Top 5 States for ${capitalize(userCareerQuery)}`);
 	$('#top-cities h3').text(`Top 5 Cities for ${capitalize(userCareerQuery)}`);
-	
+
 	const stateResults = addStateJobs(results);
 	let topFiveStates = Object.keys(stateResults).map(function(state) {
   		return { 
@@ -199,6 +233,7 @@ function displayLocData (results) {
 
 	const citiesList = citiesTopFive.map((item, index) => renderCitiesResults(item));
 		$('#cities-list').html(citiesList);
+	}
 }
 
 function renderCitiesResults(city) {
@@ -263,8 +298,14 @@ function addStateJobs(results) {
 }
 
 function displayCareerProgression (results) {
-	$('#progression-page h2').text(`Check out these career options related to ${capitalize(userCurrentCareer)}`);
 	let jobs = results.response.results;
+	if (!jobs.length) {	
+		$('#progression-page').addClass('no-display');
+		$('#error-page').removeClass('no-display');
+		$('#error-page h2').text(`Sorry, no results found for ${userCurrentCareer}. 
+			Please try searching again.`);
+	} else {
+	$('#progression-page h2').text(`Check out these career options related to ${capitalize(userCurrentCareer)}`);
 	const jobsProg = [];
 	for (let i = 0; i < 5; i++) {
 		console.log(jobs[i]);
@@ -287,6 +328,7 @@ function displayCareerProgression (results) {
 	const jobsList = jobsProg.map((item, index) => renderJobProg(item));
 	$('#jobs-list').html(jobsList);
 }
+}
 
 function renderJobProg(job) {
 	return `
@@ -303,12 +345,6 @@ function renderJobProg(job) {
 function capitalize (string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
-
-// window.setTimeout(function(){
-// 	stateTotal = 4000;
-// 	uStates.draw('#statesvg', calculateSampleData(), tooltipHtml);
-// 	d3.select(self.frameElement).style('height', '600px'); 
-// }, 3000);
 
 function tooltipHtml(n, d) {	/* function to create html content string in tooltip div. */
 	return `<h4>${n}</h4><table>

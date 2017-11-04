@@ -71,11 +71,12 @@ uStates.draw = function(id, data, toolTip) {
 	function resize() {
 		const position = $(id).position();
 		const width = window.innerWidth - position.left * 2;
-		const scale = Math.min(1, width/927);
-		const height = (588*scale);
-		d3.select(id).attr('width', width+'px').attr('height', height+'px');
-		d3.select('#canvas').attr('transform', 'scale('+scale+')');
+		const scale = Math.min(1, width/1000);
+		const height = (650 * scale);
+		d3.select(id).attr('width', width +'px').attr('height', height + 'px');
+		d3.select('#canvas').attr('transform', 'scale(' + scale + ')');
 	}
+	
 		d3.select(id).select('#canvas').selectAll('.state')
 			.data(uStatePaths).enter().append('path').attr('class','state').attr('d', function(d) { 
 			return d.d;
