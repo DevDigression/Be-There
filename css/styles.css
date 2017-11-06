@@ -118,12 +118,13 @@ ul {
 }
 
 .glassdoor-attribution {
-	width: 150px;
+	width: 100%;
 	height: 35px;
 	margin: 0 auto;
 	text-align: center;
 	background: #FFF;
 	border: 3px solid #898989;
+	padding-top: 10px;
 }
 
 
@@ -148,7 +149,7 @@ ul {
 
 #loc-page { 
 	width: 80%;
-	margin: 20px auto;
+	margin: 0 auto;
 }
 
 #loc-page h2 {
@@ -165,19 +166,25 @@ ul {
 
 #top-states li {
 	font-size: 24px;
+	text-align: center;
 }
 
 #states-list {
-	width: 50%;
+	width: 40%;
 	height: 400px;
 	display: inline-block;
-	margin-top: 50px;
-	padding: 0;
+	padding-top: 20px;
 }
 
 .state-result {
 	font-size: 36px;
 	color: #FFF;
+	margin-top: 10px;
+}
+
+.state-percent {
+	font-size: 18px;
+	color: #A7A7A7;
 }
 
 #top-cities {
@@ -188,18 +195,25 @@ ul {
 
 #top-cities li {
 	font-size: 24px;
+	text-align: center;
 }
 
 #cities-list {
 	width: 50%;
 	height: 400px;
 	display: inline-block;
-	margin-top: 50px;
+	padding-top: 20px;
 }
 
 .city-result {
 	font-size: 36px;
 	color: #FFF;
+	margin-top: 10px;
+}
+
+.city-percent {
+	font-size: 18px;
+	color: #A7A7A7;
 }
 
 #related-careers {
@@ -350,7 +364,7 @@ ul {
 
 #progression-page { 
 	width: 80%;
-	margin: 5% auto;
+	margin: 0 auto;
 }
 
 #progression-page h2 {
@@ -473,12 +487,13 @@ input {
 #top-cities, #top-states, #related-careers {
 	display: block;
 	width: 100%;
+	margin: 20px auto 20px 0;
 }
 
 #cities-list, #states-list {
 	display: block;
 	width: 100%;
-	height: 250px;
+	height: 400px;
 	text-align: center;
 }
 
@@ -486,7 +501,6 @@ input {
 	width: 100%;
 	text-align: center;
 	display: block;
-	margin: 0 auto;
 }
 
 #states-chart {

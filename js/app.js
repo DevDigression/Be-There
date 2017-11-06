@@ -239,15 +239,15 @@ function displayLocData (results) {
 function renderCitiesResults(city) {
 	let cityState = city.stateName;
 	return `
-		<li class="city-result">${city.name} - ${city.numJobs} Jobs 
-		(${Math.round((city.numJobs/stateCount[cityState])*100)}% of ${cityState})</li>
+		<li class="city-result">${city.name}</li>
+		<li class="city-percent">${city.numJobs} Jobs (${Math.round((city.numJobs/stateCount[cityState])*100)}% of ${cityState})</li>
 		`
 }
 
 function renderStatesResults(state) {
 	return `
-		<li class="state-result">${state.stateName} - ${state.jobs} Jobs 
-		(${Math.round((state.jobs/nationTotal)*100)}%)</li>
+		<li class="state-result">${state.stateName}</li> 
+		<li class="state-percent">${state.jobs} Jobs (${Math.round((state.jobs/nationTotal)*100)}%)</li>
 		`
 }
 
