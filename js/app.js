@@ -247,7 +247,7 @@ function renderCitiesResults(city) {
 function renderStatesResults(state) {
 	return `
 		<li class="state-result">${state.stateName}</li> 
-		<li class="state-percent">${state.jobs} Jobs (${Math.round((state.jobs/nationTotal)*100)}%)</li>
+		<li class="state-percent">${state.jobs} Jobs (${Math.round((state.jobs/nationTotal)*100)}% of nation)</li>
 		`
 }
 
