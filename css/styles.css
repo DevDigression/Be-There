@@ -76,6 +76,10 @@ ul {
 	overflow: auto;
 }
 
+span {
+	color: #000;
+}
+
 .hidden {
 	visibility: hidden;
 }
@@ -121,10 +125,6 @@ ul {
 
 .glassdoor-attribution img {
 	vertical-align: middle;
-}
-
-span {
-	color: #000;
 }
 
 /*********************** Home Page / Search *************************/
@@ -356,7 +356,7 @@ span {
 }
 
 #cities-chart svg { 
-	width: 300px; 
+	width: 100%; 
 	height: 300px;
 	display: inline-block;
 }
@@ -432,6 +432,7 @@ span {
 	border: 2px solid black;
 	border-radius: 5px;
 	background: #FFF;
+	padding: 10px;
 }
 
 #error-page h2 {
@@ -446,6 +447,10 @@ span {
 /******************************* MEDIA QUERIES ********************************/
 
 @media(max-width: 768px) {
+
+h1 {
+	font-size: 56px;
+}
 
 form {
 	width: 90%;
@@ -487,7 +492,7 @@ input {
 }
 
 #loc-page {
-	margin-top: 50px;
+	margin-top: 50px auto;
 }
 
 #top-cities, #top-states, #related-careers {
@@ -496,13 +501,22 @@ input {
 	float: none;
 }
 
-.list-container {
+.glassdoor-attribution {
+	width: 90%;
+	margin: 20px auto;
+}
+
+.list-container, #related-careers-container {
 	display: block;
-	width: 100%;
+	width: 90%;
 	text-align: center;
 	float: none;
 	margin: 20px auto;
 	clear: both;
+}
+
+#related-careers-list {
+	padding-left: 0;
 }
 
 #states-graph {
@@ -547,7 +561,7 @@ input {
 #jobs-progression {
 	width: 100%;
 	height: auto
-	margin: 10% auto;
+	margin: 20px auto;
 }
 
 #jobs-progression ul {
