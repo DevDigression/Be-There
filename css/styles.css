@@ -67,7 +67,7 @@ a {
 }
 
 a:hover {
-	color: #898989;
+	color: #808080;
 }
 
 ul {
@@ -164,6 +164,10 @@ span {
 	color: #000;
 }
 
+#cities-list, #states-list {
+	font-weight: bold;
+}
+
 .list {
 	padding: 0;
 	width: 100%;
@@ -186,7 +190,7 @@ span {
 
 .state-percent, .city-percent {
 	font-size: 18px;
-	color: #A7A7A7;
+	color: #808080;
 }
 
 #top-states {
@@ -298,12 +302,12 @@ span {
 
 #tooltip {
 		background: rgba(0,0,0,0.9);
-		border: 1px solid grey;
+		border: 1px solid #6F6F6F;
 		border-radius: 5px;
 		font-size: 12px;
 		width: auto;
 		padding: 4px;
-		color: white;
+		color: #FFF;
 		opacity: 0;
 }
 

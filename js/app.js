@@ -69,9 +69,7 @@ $(function() {
 
 	$('#career-search').submit(function(event) {
 		event.preventDefault();
-		console.log(userCurrentCareer);
 		userCurrentCareer = $('#career-query').val();
-		console.log(userCurrentCareer);
 		$('#career-query').val("");
 		$('#home-page-header').addClass('no-display');
 		$('#home-page').addClass('no-display');
@@ -80,7 +78,6 @@ $(function() {
 
 		$('#jobs-list').on('click', 'button', function(event){
 			userCareerQuery = $(this).closest('.related-job').find('h3').attr('class');
-			console.log(userCareerQuery);
 			$('#progression-page').addClass('no-display');
 			$('#loc-page').removeClass('no-display');
 			retrieveJobStats(displayLocData);
@@ -308,7 +305,6 @@ function displayCareerProgression (results) {
 	$('#progression-page h2').text(`Check out these career options related to ${capitalize(userCurrentCareer)}`);
 	const jobsProg = [];
 	for (let i = 0; i < 5; i++) {
-		console.log(jobs[i]);
 		jobsProg.push(jobs[i]);
 		jobsBarChart[0].values.push({
     		'date': jobs[i].nextJobTitle,
