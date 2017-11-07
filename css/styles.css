@@ -72,7 +72,6 @@ a:hover {
 
 ul {
 	width: 90%;
-	height: 250px;
 	list-style: none;
 	overflow: auto;
 }
@@ -157,34 +156,48 @@ span {
 	font-size: 48px;
 }
 
+#top-states-header {
+	color: #000;
+}
+
+#top-cities-header {
+	color: #000;
+}
+
+.list {
+	padding: 0;
+	width: 100%;
+}
+
+.list-container {
+	width: 50%;
+	display: inline-block;
+	padding: 10px;
+	background: #FFF;
+	color: #000;
+	border: 2px solid #000;
+}
+
+.state-result, .city-result {
+	font-size: 36px;
+	color: #000;
+	margin-top: 10px;
+}
+
+.state-percent, .city-percent {
+	font-size: 18px;
+	color: #A7A7A7;
+}
+
 #top-states {
 	width: 100%;
 	height: 400px;
 	margin: 100px auto;
-	display: block;
 }
 
 #top-states li {
 	font-size: 24px;
 	text-align: center;
-}
-
-#states-list {
-	width: 40%;
-	height: 400px;
-	display: inline-block;
-	padding-top: 20px;
-}
-
-.state-result {
-	font-size: 36px;
-	color: #FFF;
-	margin-top: 10px;
-}
-
-.state-percent {
-	font-size: 18px;
-	color: #A7A7A7;
 }
 
 #top-cities {
@@ -198,48 +211,35 @@ span {
 	text-align: center;
 }
 
-#cities-list {
-	width: 50%;
-	height: 400px;
-	display: inline-block;
-	padding-top: 20px;
-}
-
-.city-result {
-	font-size: 36px;
-	color: #FFF;
-	margin-top: 10px;
-}
-
-.city-percent {
-	font-size: 18px;
-	color: #A7A7A7;
-}
-
 #related-careers {
 	width: 100%;
 	height: 400px;
-	margin: 100px auto 0 auto;
+	margin: 150px auto 0 auto;
 	clear: both;
 	display: block;
 }
 
-#related-careers-list {
-	border: 3px solid #898989;
+#related-careers-header {
+	color: #000;
+}
+
+#related-careers-container {
+	border: 2px solid #000;
 	font-size: 24px;
-	width: 60%;
+	width: 100%;
 	height: 300px;
-	margin: 20px auto;
+	margin: 60px auto;
 	display: block;
 	background: #FFF;
+	padding: 10px;
+	text-align: center;
+	overflow: auto;
 }
 
 #related-careers-list ul {
 	width: 95%;
 	height: 250px;
 	list-style: none;
-	text-align: center;
-	overflow: auto;
 }
 
 .related-job {
@@ -356,7 +356,7 @@ span {
 }
 
 #cities-chart svg { 
-	width: 100%; 
+	width: 300px; 
 	height: 300px;
 	display: inline-block;
 }
@@ -404,7 +404,6 @@ span {
 }
 
 #jobs-chart, #salary-chart {
-	font-size: 24px;
 	width: 100%;
 }
 
@@ -438,6 +437,11 @@ span {
 #error-page h2 {
 	color: #000;
 }
+
+
+
+
+
 
 /******************************* MEDIA QUERIES ********************************/
 
@@ -489,47 +493,53 @@ input {
 #top-cities, #top-states, #related-careers {
 	display: block;
 	width: 100%;
-	margin: 20px auto 20px 0;
+	float: none;
 }
 
-#cities-list, #states-list {
+.list-container {
 	display: block;
 	width: 100%;
-	height: 400px;
 	text-align: center;
+	float: none;
+	margin: 20px auto;
+	clear: both;
 }
 
 #states-graph {
 	width: 100%;
 	text-align: center;
 	display: block;
+	float: none;
+	margin: 20px auto;
 }
 
 #states-chart {
-	width: 100%;
+/*	width: 100%;*/
 	display: block;
 }
 
-#states-chart svg { 
+#states-chart svg {
+	width: 100%;
 	display: block;
+	float: none;
 }
 
 #cities-graph {
 	width: 100%;
 	text-align: center;
-	margin: 10px auto;
+	margin: 20px auto;
 	display: block;
+	float: none;
 }
 
 #cities-chart {
-	width: 100%;
 	display: block;
 }
 
 #cities-chart svg { 
-	width: 100%; 
+	max-width: 100%; 
 	height: 300px;
-	display: inline-block;
+	display: block;
 }
 
 /********************** Jobs Progression Page *************************/

@@ -44,30 +44,39 @@
 		<div id="tooltip"></div>
 		<svg id="statesvg"><g id="canvas"></g></svg>
 	</div>
+
 	<div id="top-states">
-		<h3></h3>
-		<ul id="states-list" class="left"></ul>
+		<div class="list-container left">
+			<h3 id="top-states-header"></h3>
+			<ul id="states-list" class="list"></ul>
+		</div>
 		<div id="states-graph" class="right">
 			<h4 id="states-chart-title"></h4>
-			<div id="states-chart"><svg></div>
+			<div id="states-chart" class="right"><svg></div>
 		</div>
 	</div>
+	
 	<div id="top-cities">
-		<h3></h3>
+		<div class="list-container right">
+			<h3 id="top-cities-header"></h3>
+			<ul id="cities-list" class="list"></ul>
+		</div>
 		<div id="cities-graph" class="left">
 			<h4 id="cities-chart-title"></h4>
 			<div id="cities-chart" class="left"><svg></div>
 		</div>
-		<ul id="cities-list" class="right"></ul>
 	</div>
+	
 	<div id="related-careers">
-		<h3></h3>
-		<ul id="related-careers-list"></ul>
+		<div id="related-careers-container">
+			<h3 id="related-careers-header"></h3>
+			<ul id="related-careers-list"></ul>
+		</div>
 	</div>
 	<div id="new-loc-search">
 		<button>New Search</button>
 		<div class="glassdoor-attribution">
-			<span>Be There &copy; <a href="https://github.com/DevDigression">Chris Rodgers</a> 2017 - </span>
+			<span><em>Be There</em> &copy; <a href="https://github.com/DevDigression">Chris Rodgers</a> 2017 - </span>
 			<a href='https://www.glassdoor.com/index.htm'>powered by  <img src='https://www.glassdoor.com/static/img/api/glassdoor_logo_80.png' title='Job Search' /></a>
 		</div>
 	</div>
@@ -89,7 +98,7 @@
 	<div id="new-career-search">
 		<button>New Search</button>
 		<div class="glassdoor-attribution">
-			<span>Be There &copy; Chris Rodgers 2017 - </span>
+			<span><em>Be There</em> &copy; <a href="https://github.com/DevDigression">Chris Rodgers</a> 2017 - </span>
 			<a href='https://www.glassdoor.com/index.htm'>powered by <img src='https://www.glassdoor.com/static/img/api/glassdoor_logo_80.png' title='Job Search' /></a>
 		</div>
 	</div>

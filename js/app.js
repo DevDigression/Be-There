@@ -198,8 +198,8 @@ function displayLocData (results) {
 		$('#error-page h2').text(`Sorry, no results found for ${userCareerQuery}. 
 			Please try searching again.`);
 	} else {
-	$('#top-states h3').text(`Top 5 States for ${capitalize(userCareerQuery)}`);
-	$('#top-cities h3').text(`Top 5 Cities for ${capitalize(userCareerQuery)}`);
+	$('#top-states-header').text(`Top 5 States for ${capitalize(userCareerQuery)}`);
+	$('#top-cities-header').text(`Top 5 Cities for ${capitalize(userCareerQuery)}`);
 
 	const stateResults = addStateJobs(results);
 	let topFiveStates = Object.keys(stateResults).map(function(state) {
