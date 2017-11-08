@@ -5,8 +5,6 @@ const GLASSDOOR_URL = "https://api.glassdoor.com/api/api.htm";
 let userCareerQuery;
 let userCurrentCareer;
 
-
-
 // Map totals -> percentage
 let stateTotal = 0;
 let nationTotal = 0;
@@ -35,7 +33,11 @@ let salaryBarChart = [
   }
 ];
 
+////////////////////////////// DOC READY ENDS/////////////////////////////
+
 $(function() {
+
+  // Type into landing form  [Map]
   $('#loc-search').submit(function(event) {
     event.preventDefault();
     userCareerQuery = $('#loc-query').val();
@@ -46,24 +48,27 @@ $(function() {
     retrieveJobStats(displayLocData);
     retrieveRelatedCareers(displayRelatedCareers);
 
-    $('#new-loc-search button').on('click', function(){
-      nationTotal = 0;
-      stateCount = {};
-      stateAbbreviation = {};
-      citiesBarChart[0].values = [];
-      jobsBarChart[0].values = [];
-      salaryBarChart[0].values = [];
+    // Get you back to the landing page
+    $('.new-search-button').on('click', function(){
+      clearValues()
+      $('#progression-page').addClass('no-display');
       $('#loc-page').addClass('no-display');
       $('#home-page-header').removeClass('no-display');
       $('#home-page').removeClass('no-display');
     });
-    $('#re-search button').on('click', function(){
+
+    function clearValues(){
       nationTotal = 0;
       stateCount = {};
       stateAbbreviation = {};
       citiesBarChart[0].values = [];
       jobsBarChart[0].values = [];
       salaryBarChart[0].values = [];
+    }
+
+
+    $('#re-search button').on('click', function(){
+      clearValues()
       $('#loc-page').addClass('no-display');
       $('#progression-page').addClass('no-display');
       $('#error-page').addClass('no-display');
@@ -88,24 +93,9 @@ $(function() {
       retrieveJobStats(displayLocData);
       retrieveRelatedCareers(displayRelatedCareers);
     });
-    $('#new-career-search button').on('click', function(){
-      nationTotal = 0;
-      stateCount = {};
-      stateAbbreviation = {};
-      citiesBarChart[0].values = [];
-      jobsBarChart[0].values = [];
-      salaryBarChart[0].values = [];
-      $('#progression-page').addClass('no-display');
-      $('#home-page-header').removeClass('no-display');
-      $('#home-page').removeClass('no-display');
-    });
+
     $('#re-search button').on('click', function(){
-      nationTotal = 0;
-      stateCount = {};
-      stateAbbreviation = {};
-      citiesBarChart[0].values = [];
-      jobsBarChart[0].values = [];
-      salaryBarChart[0].values = [];
+      clearValues()
       $('#loc-page').addClass('no-display');
       $('#progression-page').addClass('no-display');
       $('#error-page').addClass('no-display');
@@ -115,6 +105,14 @@ $(function() {
   });
 
 });
+
+////////////////////////////// DOC READY ENDS/////////////////////////////
+
+
+
+
+
+
 
 function retrieveJobStats (callback) {
   const params = {
