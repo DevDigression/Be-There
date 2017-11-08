@@ -50,8 +50,8 @@ $(function() {
     $('#home-page-header').addClass('no-display');
     $('#home-page').addClass('no-display');
     $('#loc-page').removeClass('no-display');
-    retrieveJobStats();
-    retrieveRelatedCareers();
+    retrieveCareerStats("displayLocData");
+    retrieveCareerStats("displayRelatedCareers");
   });
   $('#career-search').submit(function(event) {
     event.preventDefault();
@@ -67,8 +67,8 @@ $(function() {
     userCareerQuery = $(this).closest('.related-job').find('h3').attr('class');
     $('#progression-page').addClass('no-display');
     $('#loc-page').removeClass('no-display');
-    retrieveJobStats();
-    retrieveRelatedCareers();
+    retrieveCareerStats("displayLocData");
+    retrieveCareerStats("displayRelatedCareers");
   });
 
 
@@ -93,39 +93,14 @@ $(function() {
 
 ////////////////////////////// DOC READY ENDS/////////////////////////////
 
-function retrieveJobStats () {
+function retrieveCareerStats (callback) {
   const params = {
     action: "jobs-stats",
     q: userCareerQuery,
     returnCities: true,
     returnJobTitles: true
   }
-
-  $.ajax({
-    url: GLASSDOOR_URL,
-    type: "GET",
-    data: Object.assign(params, GLASSDOOR_PARAMS),
-    dataType: "jsonp",
-    jsonpCallback: "displayLocData"
-  });
-}
-
-function retrieveRelatedCareers () {
-
-  const params = {
-    action: "jobs-stats",
-    q: userCareerQuery,
-    returnCities: true,
-    returnJobTitles: true
-  }
-
-  $.ajax({
-    url: GLASSDOOR_URL,
-    type: "GET",
-    data: Object.assign(params, GLASSDOOR_PARAMS),
-    dataType: "jsonp",
-    jsonpCallback: "displayRelatedCareers"
-  });
+  doAjax(params, callback)
 }
 
 function retrieveJobProg (callback) {
@@ -134,15 +109,22 @@ function retrieveJobProg (callback) {
     jobTitle: userCurrentCareer,
     countryId: 1
   }
+  doAjax(params, "displayCareerProgression" )
+}
 
+function doAjax(params, callback ){
   $.ajax({
     url: GLASSDOOR_URL,
     type: "GET",
     data: Object.assign(params, GLASSDOOR_PARAMS),
     dataType: "jsonp",
-    jsonpCallback: "displayCareerProgression"
+    jsonpCallback: callback
   });
 }
+
+
+
+
 
 function displayLocData (results) {
   let jobs = results.response.jobTitles;
