@@ -1,5 +1,10 @@
 const GLASSDOOR_URL = "https://api.glassdoor.com/api/api.htm";
-
+const GLASSDOOR_PARAMS = {
+  v: "1",
+  format: "json",
+  "t.p": "213919",
+  "t.k": "dckaIJmhJoa",
+}
 
 // search terms
 let userCareerQuery;
@@ -90,12 +95,7 @@ $(function() {
 
 function retrieveJobStats () {
   const params = {
-    v: "1",
-    format: "json",
-    "t.p": "213919",
-    "t.k": "dckaIJmhJoa",
     action: "jobs-stats",
-    // Optional params below
     q: userCareerQuery,
     returnCities: true,
     returnJobTitles: true
@@ -104,23 +104,16 @@ function retrieveJobStats () {
   $.ajax({
     url: GLASSDOOR_URL,
     type: "GET",
-    data: params,
+    data: Object.assign(params, GLASSDOOR_PARAMS),
     dataType: "jsonp",
     jsonpCallback: "displayLocData"
   });
 }
 
-// TODO:
-// Check arguments - callback
-
 function retrieveRelatedCareers () {
+
   const params = {
-    v: "1",
-    format: "json",
-    "t.p": "213919",
-    "t.k": "dckaIJmhJoa",
     action: "jobs-stats",
-    // Optional params below
     q: userCareerQuery,
     returnCities: true,
     returnJobTitles: true
@@ -129,7 +122,7 @@ function retrieveRelatedCareers () {
   $.ajax({
     url: GLASSDOOR_URL,
     type: "GET",
-    data: params,
+    data: Object.assign(params, GLASSDOOR_PARAMS),
     dataType: "jsonp",
     jsonpCallback: "displayRelatedCareers"
   });
@@ -137,10 +130,6 @@ function retrieveRelatedCareers () {
 
 function retrieveJobProg (callback) {
   const params = {
-    v: "1",
-    format: "json",
-    "t.p": "213919",
-    "t.k": "dckaIJmhJoa",
     action: "jobs-prog",
     jobTitle: userCurrentCareer,
     countryId: 1
@@ -149,7 +138,7 @@ function retrieveJobProg (callback) {
   $.ajax({
     url: GLASSDOOR_URL,
     type: "GET",
-    data: params,
+    data: Object.assign(params, GLASSDOOR_PARAMS),
     dataType: "jsonp",
     jsonpCallback: "displayCareerProgression"
   });
