@@ -71,10 +71,6 @@ $(function() {
     retrieveCareerStats("displayRelatedCareers");
   });
 
-
-
-
-
   // Get you back to the landing page
   $('.new-search-button').on('click', function(){
     nationTotal = 0;
@@ -91,7 +87,6 @@ $(function() {
   });
 });
 
-////////////////////////////// DOC READY ENDS/////////////////////////////
 
 function retrieveCareerStats (callback) {
   const params = {
@@ -100,7 +95,7 @@ function retrieveCareerStats (callback) {
     returnCities: true,
     returnJobTitles: true
   }
-  doAjax(params, callback)
+  requestData(params, callback)
 }
 
 function retrieveJobProg (callback) {
@@ -109,10 +104,10 @@ function retrieveJobProg (callback) {
     jobTitle: userCurrentCareer,
     countryId: 1
   }
-  doAjax(params, "displayCareerProgression" )
+  requestData(params, "displayCareerProgression" )
 }
 
-function doAjax(params, callback ){
+function requestData(params, callback ){
   $.ajax({
     url: GLASSDOOR_URL,
     type: "GET",
@@ -123,16 +118,13 @@ function doAjax(params, callback ){
 }
 
 
-
-
-
 function displayLocData (results) {
   let jobs = results.response.jobTitles;
 
   if (!jobs.length) {
     $('#loc-page').addClass('no-display');
     $('#error-page').removeClass('no-display');
-    $('#error-page h2').text(`Sorry, no results found for ${userCareerQuery}.
+    $('#error-page-h2').text(`Sorry, no results found for ${userCareerQuery}.
       Please try searching again.`);
     } else {
       $('#top-states-header').text(`Top 5 States for ${capitalize(userCareerQuery)}`);
@@ -164,7 +156,6 @@ function displayLocData (results) {
           });
         }
         renderCitiesChart();
-
         $('#states-chart-title').text("Number of Jobs by State");
         $('#cities-chart-title').text("Number of Jobs by City");
 
@@ -191,7 +182,6 @@ function displayLocData (results) {
     function displayRelatedCareers (results) {
       $('#related-careers h3').text("Jobs related to " + userCareerQuery);
       let careers = results.response.jobTitles;
-
       const careersList = careers.map((item, index) => renderRelatedCareers(item));
       $('#related-careers-list').html(careersList);
     }
@@ -204,7 +194,6 @@ function displayLocData (results) {
 
     function addStateJobs(results) {
       let statesList = results.response.cities;
-
       for (let state of statesList) {
         if (!stateCount[state.stateName] && !stateAbbreviation[state.stateAbbreviationreviation]) {
           stateCount[state.stateName] = state.numJobs;
@@ -295,8 +284,6 @@ function displayLocData (results) {
       // uStates.draw('#statesvg', calculateSampleData(1), tooltipHtml);
       d3.select(self.frameElement).style('height', '600px');
 
-
-
       function renderCitiesChart() {
         nv.addGraph(function() {
           var chart = nv.models.discreteBarChart()
@@ -308,7 +295,6 @@ function displayLocData (results) {
           .transitionDuration(250);
 
           chart.xAxis
-
           chart.yAxis
 
           d3.select('#cities-chart svg')
@@ -320,7 +306,6 @@ function displayLocData (results) {
           return chart;
         });
       }
-
 
       function topStates(states) {
         return  {
@@ -356,7 +341,6 @@ function displayLocData (results) {
           .transitionDuration(250);
 
           chart.xAxis
-
           chart.yAxis
 
           d3.select('#jobs-chart svg')
@@ -380,7 +364,6 @@ function displayLocData (results) {
           .transitionDuration(250);
 
           chart.xAxis
-
           chart.yAxis
 
           d3.select('#salary-chart svg')

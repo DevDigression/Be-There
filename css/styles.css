@@ -100,14 +100,13 @@ span {
 	width: 250px;
 	margin: 10px auto;
 }
-
-#new-location-search, #new-career-search, #re-search {
+.new-search{
 	width: 100%;
 	margin: 0 auto;
 	clear: both;
 }
 
-#new-location-search button, #new-career-search button, #re-search button {
+.new-search-button{
 	width: 100px;
 	height: 35px;
 	display: block;
