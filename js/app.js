@@ -1,468 +1,377 @@
 const GLASSDOOR_URL = "https://api.glassdoor.com/api/api.htm";
-
-let userCareerQuery;
-let userCurrentCareer;
-let userCity;
-let userState;
-let stateTotal = 0;
-let nationTotal = 0;
-let stateCount = {};
-let stateAbb = {};
-
-citiesBarChart = [
-  {
-    key: "Cumulative Return",
-    values: []
-  }
-];
-
-jobsBarChart = [
-  {
-    key: "Cumulative Return",
-    values: []
-  }
-];
-
-salaryBarChart = [
-  {
-    key: "Cumulative Return",
-    values: []
-  }
-];
-
-$(function() {
-	$('#loc-search').submit(function(event) {
-		event.preventDefault();
-		userCareerQuery = $('#loc-query').val();
-		$('#loc-query').val("");
-		$('#home-page-header').addClass('no-display');
-		$('#home-page').addClass('no-display');
-		$('#loc-page').removeClass('no-display');
-		retrieveJobStats(displayLocData);
-		retrieveRelatedCareers(displayRelatedCareers);
-
-		$('#new-loc-search button').on('click', function(){
-			nationTotal = 0;
-			stateCount = {};
-			stateAbb = {};
-			citiesBarChart[0].values = [];
-			jobsBarChart[0].values = [];
-			salaryBarChart[0].values = [];
-			$('#loc-page').addClass('no-display');
-			$('#home-page-header').removeClass('no-display');
-			$('#home-page').removeClass('no-display');
-		});
-		$('#re-search button').on('click', function(){
-			nationTotal = 0;
-			stateCount = {};
-			stateAbb = {};
-			citiesBarChart[0].values = [];
-			jobsBarChart[0].values = [];
-			salaryBarChart[0].values = [];
-			$('#loc-page').addClass('no-display');
-			$('#progression-page').addClass('no-display');
-			$('#error-page').addClass('no-display');
-			$('#home-page-header').removeClass('no-display');
-			$('#home-page').removeClass('no-display');
-		});
-	});
-
-	$('#career-search').submit(function(event) {
-		event.preventDefault();
-		userCurrentCareer = $('#career-query').val();
-		$('#career-query').val("");
-		$('#home-page-header').addClass('no-display');
-		$('#home-page').addClass('no-display');
-		$('#progression-page').removeClass('no-display');
-		retrieveJobProg(displayCareerProgression);
-
-		$('#jobs-list').on('click', 'button', function(event){
-			userCareerQuery = $(this).closest('.related-job').find('h3').attr('class');
-			$('#progression-page').addClass('no-display');
-			$('#loc-page').removeClass('no-display');
-			retrieveJobStats(displayLocData);
-			retrieveRelatedCareers(displayRelatedCareers);
-		});
-		$('#new-career-search button').on('click', function(){
-			nationTotal = 0;
-			stateCount = {};
-			stateAbb = {};
-			citiesBarChart[0].values = [];
-			jobsBarChart[0].values = [];
-			salaryBarChart[0].values = [];
-			$('#progression-page').addClass('no-display');
-			$('#home-page-header').removeClass('no-display');
-			$('#home-page').removeClass('no-display');
-		});
-		$('#re-search button').on('click', function(){
-			nationTotal = 0;
-			stateCount = {};
-			stateAbb = {};
-			citiesBarChart[0].values = [];
-			jobsBarChart[0].values = [];
-			salaryBarChart[0].values = [];
-			$('#loc-page').addClass('no-display');
-			$('#progression-page').addClass('no-display');
-			$('#error-page').addClass('no-display');
-			$('#home-page-header').removeClass('no-display');
-			$('#home-page').removeClass('no-display');
-		});
-	});
-	
-});
-
-function retrieveJobStats (callback) {
-	const params = {
-		v: "1",
-		format: "json",
-		"t.p": "213919",
-		"t.k": "dckaIJmhJoa",
-		action: "jobs-stats",
-		// Optional params below
-		q: userCareerQuery,
-		city: userCity,
-		state: userState,
-		returnCities: true,
-		returnJobTitles: true
-		// returnStates: true,
-		// admLevelRequested: 1
-	}
-
-	$.ajax({
-			url: GLASSDOOR_URL,
-			type: "GET",
-			data: params,
-			dataType: "jsonp",
-			jsonpCallback: "displayLocData"
-	});
+const GLASSDOOR_PARAMS = {
+  v: "1",
+  format: "json",
+  "t.p": "213919",
+  "t.k": "dckaIJmhJoa",
 }
 
-// TODO:
-// Check arguments - callback
+// search terms
+let userCareerQuery;
+let userCurrentCareer;
 
-function retrieveRelatedCareers (callback) {
-	const params = {
-		v: "1",
-		format: "json",
-		"t.p": "213919",
-		"t.k": "dckaIJmhJoa",
-		action: "jobs-stats",
-		// Optional params below
-		q: userCareerQuery,
-		city: userCity,
-		state: userState,
-		returnCities: true,
-		returnJobTitles: true
-		// returnStates: true,
-		// admLevelRequested: 1
-	}
+// Map totals -> percentage
+let stateTotal = 0;
+let nationTotal = 0;
 
-	$.ajax({
-			url: GLASSDOOR_URL,
-			type: "GET",
-			data: params,
-			dataType: "jsonp",
-			jsonpCallback: "displayRelatedCareers"
-	});
+let stateCount = {};
+let stateAbbreviation = {};
+
+let citiesBarChart = [
+  {
+    key: "Cumulative Return",
+    values: []
+  }
+];
+
+let jobsBarChart = [
+  {
+    key: "Cumulative Return",
+    values: []
+  }
+];
+
+let salaryBarChart = [
+  {
+    key: "Cumulative Return",
+    values: []
+  }
+];
+
+////////////////////////////// DOC READY ENDS/////////////////////////////
+
+$(function() {
+
+  // Type into landing form  [Map]
+  $('#location-search').submit(function(event) {
+    event.preventDefault();
+    userCareerQuery = $('#loc-query').val();
+    $('#loc-query').val("");
+    $('#home-page-header').addClass('no-display');
+    $('#home-page').addClass('no-display');
+    $('#loc-page').removeClass('no-display');
+    retrieveCareerStats("displayLocData");
+    retrieveCareerStats("displayRelatedCareers");
+  });
+  $('#career-search').submit(function(event) {
+    event.preventDefault();
+    userCurrentCareer = $('#career-query').val();
+    $('#career-query').val("");
+    $('#home-page-header').addClass('no-display');
+    $('#home-page').addClass('no-display');
+    $('#progression-page').removeClass('no-display');
+    retrieveJobProg(displayCareerProgression);
+  });
+
+  $('#jobs-list').on('click', 'button', function(event){
+    userCareerQuery = $(this).closest('.related-job').find('h3').attr('class');
+    $('#progression-page').addClass('no-display');
+    $('#loc-page').removeClass('no-display');
+    retrieveCareerStats("displayLocData");
+    retrieveCareerStats("displayRelatedCareers");
+  });
+
+  // Get you back to the landing page
+  $('.new-search-button').on('click', function(){
+    nationTotal = 0;
+    stateCount = {};
+    stateAbbreviation = {};
+    citiesBarChart[0].values = [];
+    jobsBarChart[0].values = [];
+    salaryBarChart[0].values = [];
+    $('#progression-page').addClass('no-display');
+    $('#loc-page').addClass('no-display');
+    $('#home-page-header').removeClass('no-display');
+    $('#home-page').removeClass('no-display');
+    $('#error-page').addClass('no-display');
+  });
+});
+
+
+function retrieveCareerStats (callback) {
+  const params = {
+    action: "jobs-stats",
+    q: userCareerQuery,
+    returnCities: true,
+    returnJobTitles: true
+  }
+  requestData(params, callback)
 }
 
 function retrieveJobProg (callback) {
-	const params = {
-		v: "1",
-		format: "json",
-		"t.p": "213919",
-		"t.k": "dckaIJmhJoa",
-		action: "jobs-prog",
-		jobTitle: userCurrentCareer,
-		countryId: 1
-	}
-
-	$.ajax({
-			url: GLASSDOOR_URL,
-			type: "GET",
-			data: params,
-			dataType: "jsonp",
-			jsonpCallback: "displayCareerProgression"
-	});
+  const params = {
+    action: "jobs-prog",
+    jobTitle: userCurrentCareer,
+    countryId: 1
+  }
+  requestData(params, "displayCareerProgression" )
 }
+
+function requestData(params, callback ){
+  $.ajax({
+    url: GLASSDOOR_URL,
+    type: "GET",
+    data: Object.assign(params, GLASSDOOR_PARAMS),
+    dataType: "jsonp",
+    jsonpCallback: callback
+  });
+}
+
 
 function displayLocData (results) {
-	let jobs = results.response.jobTitles;
-	
-	if (!jobs.length) {	
-		$('#loc-page').addClass('no-display');
-		$('#error-page').removeClass('no-display');
-		$('#error-page h2').text(`Sorry, no results found for ${userCareerQuery}. 
-			Please try searching again.`);
-	} else {
-	$('#top-states-header').text(`Top 5 States for ${capitalize(userCareerQuery)}`);
-	$('#top-cities-header').text(`Top 5 Cities for ${capitalize(userCareerQuery)}`);
+  let jobs = results.response.jobTitles;
 
-	const stateResults = addStateJobs(results);
-	let topFiveStates = Object.keys(stateResults).map(function(state) {
-  		return { 
-  			stateName: state, 
-  			jobs: this[state] };
-		}, stateResults);
-		topFiveStates.sort(function(state1, state2) { 
-		return state2.jobs - state1.jobs; 
-	});
-	const statesTopFive = topFiveStates.slice(0, 5);
-	const statesList = statesTopFive.map((item, index) => renderStatesResults(item));
-		$('#states-list').html(statesList);
+  if (!jobs.length) {
+    $('#loc-page').addClass('no-display');
+    $('#error-page').removeClass('no-display');
+    $('#error-page-h2').text(`Sorry, no results found for ${userCareerQuery}.
+      Please try searching again.`);
+    } else {
+      $('#top-states-header').text(`Top 5 States for ${capitalize(userCareerQuery)}`);
+      $('#top-cities-header').text(`Top 5 Cities for ${capitalize(userCareerQuery)}`);
 
-	const topFiveStatesList = statesTopFive.map((item, index) => topStates(item));
-	renderStatesChart(topFiveStatesList);
+      const stateResults = addStateJobs(results);
+      let topFiveStates = Object.keys(stateResults).map(function(state) {
+        return {
+          stateName: state,
+          jobs: this[state] };
+        }, stateResults);
+        topFiveStates.sort(function(state1, state2) {
+          return state2.jobs - state1.jobs;
+        });
+        const statesTopFive = topFiveStates.slice(0, 5);
+        const statesList = statesTopFive.map((item, index) => renderStatesResults(item));
+        $('#states-list').html(statesList);
 
-	let cities = results.response.cities;
-	const citiesTopFive = [];
-	for (let i = 0; i < 5; i++) {
-		citiesTopFive.push(cities[i]);
-		citiesBarChart[0].values.push({
-    		'date': cities[i].name,
-    		'value': cities[i].numJobs
-  		});
-	}
-	renderCitiesChart();
+        const topFiveStatesList = statesTopFive.map((item, index) => topStates(item));
+        renderStatesChart(topFiveStatesList);
 
-	$('#states-chart-title').text("Number of Jobs by State");
-	$('#cities-chart-title').text("Number of Jobs by City");
+        let cities = results.response.cities;
+        const citiesTopFive = [];
+        for (let i = 0; i < 5; i++) {
+          citiesTopFive.push(cities[i]);
+          citiesBarChart[0].values.push({
+            'date': cities[i].name,
+            'value': cities[i].numJobs
+          });
+        }
+        renderCitiesChart();
+        $('#states-chart-title').text("Number of Jobs by State");
+        $('#cities-chart-title').text("Number of Jobs by City");
 
-	const citiesList = citiesTopFive.map((item, index) => renderCitiesResults(item));
-		$('#cities-list').html(citiesList);
-	}
-}
-
-function renderCitiesResults(city) {
-	let cityState = city.stateName;
-	return `
-		<li class="city-result">${city.name}</li>
-		<li class="city-percent">${city.numJobs} Jobs (${Math.round((city.numJobs/stateCount[cityState])*100)}% of ${cityState})</li>
-		`
-}
-
-function renderStatesResults(state) {
-	return `
-		<li class="state-result">${state.stateName}</li> 
-		<li class="state-percent">${state.jobs} Jobs (${Math.round((state.jobs/nationTotal)*100)}% of nation)</li>
-		`
-}
-
-function displayRelatedCareers (results) {
-	$('#related-careers h3').text("Jobs related to " + userCareerQuery);
-	let careers = results.response.jobTitles;
-	
-	const careersList = careers.map((item, index) => renderRelatedCareers(item));
-		$('#related-careers-list').html(careersList);
-}
-
-function renderRelatedCareers(result) {
-	return `
-		<li><a href="https://www.glassdoor.com/Job/jobs.htm?sc.keyword=${result.jobTitle}" target="_blank">${result.jobTitle}</a> (${result.numJobs} Jobs)</li>
-		`
-}
-
-function addStateJobs(results) {
-	let statesList = results.response.cities;
-	
-	if (userCity == "" && userState == "") {
-			for (let state of statesList) {
-    		if (!stateCount[state.stateName] && !stateAbb[state.stateAbbreviation]) {
-      		stateCount[state.stateName] = state.numJobs;
-      		stateAbb[state.stateAbbreviation] = state.numJobs;
-    		} else {
-      		stateCount[state.stateName] += state.numJobs;
-      		stateAbb[state.stateAbbreviation] += state.numJobs;
-    		}
-    		nationTotal += state.numJobs;
-		}	
-	} else {
-  		for (let state of statesList) {
-    		if (!stateCount[state.stateName]) {
-      		stateCount[state.stateName] = state.numJobs;
-      		stateAbb[state.stateAbbreviation] = state.numJobs;
-    		} else {
-      		stateCount[state.stateName] += state.numJobs;
-      		stateAbb[state.stateAbbreviation] += state.numJobs;
-    		}
-    		nationTotal += state.numJobs;
-  	}
-  }
-  	
-  uStates.draw('#statesvg', calculateSampleData(stateAbb), tooltipHtml);
-
-   	return stateCount;
-}
-
-function displayCareerProgression (results) {
-	let jobs = results.response.results;
-	if (!jobs.length) {	
-		$('#progression-page').addClass('no-display');
-		$('#error-page').removeClass('no-display');
-		$('#error-page h2').text(`Sorry, no results found for ${userCurrentCareer}. 
-			Please try searching again.`);
-	} else {
-	$('#progression-page h2').text(`Check out these career options related to ${capitalize(userCurrentCareer)}`);
-	const jobsProg = [];
-	for (let i = 0; i < 5; i++) {
-		jobsProg.push(jobs[i]);
-		jobsBarChart[0].values.push({
-    		'date': jobs[i].nextJobTitle,
-    		'value': jobs[i].nationalJobCount
-  		});
-  		salaryBarChart[0].values.push({
-    		'date': jobs[i].nextJobTitle,
-    		'value': jobs[i].medianSalary
-  		});
-	}
-
-	$('#jobs-chart-title').text("National Job Count");
-	$('#salary-chart-title').text("Median Salary");
-
-	renderJobsChart();
-	renderSalaryChart();
-	const jobsList = jobsProg.map((item, index) => renderJobProg(item));
-	$('#jobs-list').html(jobsList);
-}
-}
-
-function renderJobProg(job) {
-	return `
-		<div class="related-job">
-		<h3 class="${job.nextJobTitle}">${capitalize(job.nextJobTitle)}</h3>
-		<li>Frequency of ${userCurrentCareer}s taking this job: ${Math.round(job.frequencyPercent*100)/100}%</li>
-		<li>Jobs available: ${job.nationalJobCount}</li>
-		<li>Median Salary: $${job.medianSalary}</li>
-		<button class="findJob">Find this Job</button>
-		</div>
-		`
-}
-
-function capitalize (string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-function tooltipHtml(n, d) {	/* function to create html content string in tooltip div. */
-	return `<h4>${n}</h4><table>
-			<tr><td>Jobs</td></tr>
-			<tr><td>State</td><td>${stateCount[n]}</td></tr>
-			<tr><td>National</td><td>${nationTotal}</td></tr>
-			</table>`;
-}
-
-function calculateSampleData (stateTotals) {
-let sampleData = {};	
-	["HI", "AK", "FL", "SC", "GA", "AL", "NC", "TN", "RI", "CT", "MA",
-	"ME", "NH", "VT", "NY", "NJ", "PA", "DE", "MD", "WV", "KY", "OH", 
-	"MI", "WY", "MT", "ID", "WA", "DC", "TX", "CA", "AZ", "NV", "UT", 
-	"CO", "NM", "OR", "ND", "SD", "NE", "IA", "MS", "IN", "IL", "MN",
-	"WI", "MO", "AR", "OK", "KS", "LA", "VA"]
-		.forEach(function(state) { 
-			sampleData[state] = {
-				color: d3.interpolate('#ffffcc', '#009999')((stateTotals[state]*10) / nationTotal)
-			}; 
-	});
-		return sampleData;
-}
-	
-/* draw states on id #statesvg */	
-// uStates.draw('#statesvg', calculateSampleData(1), tooltipHtml);	
-d3.select(self.frameElement).style('height', '600px'); 
-
-
-
-function renderCitiesChart() {
-nv.addGraph(function() {  
-  var chart = nv.models.discreteBarChart()
-      .x(function(d) { return d.date })
-      .y(function(d) { return d.value })
-      .staggerLabels(true)
-      .tooltips(true)
-      .showValues(false)
-      .transitionDuration(250);
-
-  chart.xAxis
-
-  chart.yAxis
- 
-  d3.select('#cities-chart svg')
-      .datum(citiesBarChart)
-      .call(chart);
-
-  nv.utils.windowResize(chart.update);
-
-  return chart;
-});
-}
-
-
-function topStates(states) {
-  return  { 
-        "state": states.stateName,
-        "jobs" : states.jobs
+        const citiesList = citiesTopFive.map((item, index) => renderCitiesResults(item));
+        $('#cities-list').html(citiesList);
       }
-}
+    }
 
-function renderStatesChart(topFiveStates) {
-nv.addGraph(function() {
-  var chart = nv.models.pieChart()
-      .x(function(d) { return d.state })
-      .y(function(d) { return d.jobs })
-      .showLabels(true);
+    function renderCitiesResults(city) {
+      let cityState = city.stateName;
+      return `
+      <li class="city-result">${city.name}</li>
+      <li class="city-percent">${city.numJobs} Jobs (${Math.round((city.numJobs/stateCount[cityState])*100)}% of ${cityState})</li>
+      `
+    }
 
-    d3.select("#states-chart svg")
-        .datum(topFiveStates)
-        .transition().duration(350)
-        .call(chart);
+    function renderStatesResults(state) {
+      return `
+      <li class="state-result">${state.stateName}</li>
+      <li class="state-percent">${state.jobs} Jobs (${Math.round((state.jobs/nationTotal)*100)}% of nation)</li>
+      `
+    }
 
-  return chart;
-});
-}
+    function displayRelatedCareers (results) {
+      $('#related-careers h3').text("Jobs related to " + userCareerQuery);
+      let careers = results.response.jobTitles;
+      const careersList = careers.map((item, index) => renderRelatedCareers(item));
+      $('#related-careers-list').html(careersList);
+    }
 
-function renderJobsChart() {
-nv.addGraph(function() {  
-  var chart = nv.models.discreteBarChart()
-      .x(function(d) { return d.date })
-      .y(function(d) { return d.value })
-      .staggerLabels(true)
-      .tooltips(true)
-      .showValues(false)
-      .transitionDuration(250);
+    function renderRelatedCareers(result) {
+      return `
+      <li><a href="https://www.glassdoor.com/Job/jobs.htm?sc.keyword=${result.jobTitle}" target="_blank">${result.jobTitle}</a> (${result.numJobs} Jobs)</li>
+      `
+    }
 
-  chart.xAxis
+    function addStateJobs(results) {
+      let statesList = results.response.cities;
+      for (let state of statesList) {
+        if (!stateCount[state.stateName] && !stateAbbreviation[state.stateAbbreviationreviation]) {
+          stateCount[state.stateName] = state.numJobs;
+          stateAbbreviation[state.stateAbbreviation] = state.numJobs;
+        } else {
+          stateCount[state.stateName] += state.numJobs;
+          stateAbbreviation[state.stateAbbreviation] += state.numJobs;
+        }
+        nationTotal += state.numJobs;
+      }
 
-  chart.yAxis
- 
-  d3.select('#jobs-chart svg')
-      .datum(jobsBarChart)
-      .call(chart);
+      uStates.draw('#statesvg', calculateSampleData(stateAbbreviation), tooltipHtml);
+      return stateCount;
+    }
 
-  nv.utils.windowResize(chart.update);
+    function displayCareerProgression (results) {
+      let jobs = results.response.results;
+      if (!jobs.length) {
+        $('#progression-page').addClass('no-display');
+        $('#error-page').removeClass('no-display');
+        $('#error-page h2').text(`Sorry, no results found for ${userCurrentCareer}.
+          Please try searching again.`);
+        } else {
+          $('#progression-page h2').text(`Check out these career options related to ${capitalize(userCurrentCareer)}`);
+          const jobsProg = [];
+          for (let i = 0; i < 5; i++) {
+            jobsProg.push(jobs[i]);
+            jobsBarChart[0].values.push({
+              'date': jobs[i].nextJobTitle,
+              'value': jobs[i].nationalJobCount
+            });
+            salaryBarChart[0].values.push({
+              'date': jobs[i].nextJobTitle,
+              'value': jobs[i].medianSalary
+            });
+          }
 
-  return chart;
-});
-}
+          $('#jobs-chart-title').text("National Job Count");
+          $('#salary-chart-title').text("Median Salary");
 
-function renderSalaryChart() {
-nv.addGraph(function() {  
-  var chart = nv.models.discreteBarChart()
-      .x(function(d) { return d.date })
-      .y(function(d) { return d.value })
-      .staggerLabels(true)
-      .tooltips(true)
-      .showValues(false)
-      .transitionDuration(250);
+          renderJobsChart();
+          renderSalaryChart();
+          const jobsList = jobsProg.map((item, index) => renderJobProg(item));
+          $('#jobs-list').html(jobsList);
+        }
+      }
 
-  chart.xAxis
+      function renderJobProg(job) {
+        return `
+        <div class="related-job">
+        <h3 class="${job.nextJobTitle}">${capitalize(job.nextJobTitle)}</h3>
+        <li>Frequency of ${userCurrentCareer}s taking this job: ${Math.round(job.frequencyPercent*100)/100}%</li>
+        <li>Jobs available: ${job.nationalJobCount}</li>
+        <li>Median Salary: $${job.medianSalary}</li>
+        <button class="findJob">Find this Job</button>
+        </div>
+        `
+      }
 
-  chart.yAxis
- 
-  d3.select('#salary-chart svg')
-      .datum(salaryBarChart)
-      .call(chart);
+      function capitalize (string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+      }
 
-  nv.utils.windowResize(chart.update);
+      function tooltipHtml(n, d) {	/* function to create html content string in tooltip div. */
+        return `<h4>${n}</h4><table>
+        <tr><td>Jobs</td></tr>
+        <tr><td>State</td><td>${stateCount[n]}</td></tr>
+        <tr><td>National</td><td>${nationTotal}</td></tr>
+        </table>`;
+      }
 
-  return chart;
-});
-}
+      function calculateSampleData (stateTotals) {
+        let sampleData = {};
+        ["HI", "AK", "FL", "SC", "GA", "AL", "NC", "TN", "RI", "CT", "MA",
+        "ME", "NH", "VT", "NY", "NJ", "PA", "DE", "MD", "WV", "KY", "OH",
+        "MI", "WY", "MT", "ID", "WA", "DC", "TX", "CA", "AZ", "NV", "UT",
+        "CO", "NM", "OR", "ND", "SD", "NE", "IA", "MS", "IN", "IL", "MN",
+        "WI", "MO", "AR", "OK", "KS", "LA", "VA"]
+        .forEach(function(state) {
+          sampleData[state] = {
+            color: d3.interpolate('#ffffcc', '#009999')((stateTotals[state]*10) / nationTotal)
+          };
+        });
+        return sampleData;
+      }
+
+      /* draw states on id #statesvg */
+      // uStates.draw('#statesvg', calculateSampleData(1), tooltipHtml);
+      d3.select(self.frameElement).style('height', '600px');
+
+      function renderCitiesChart() {
+        nv.addGraph(function() {
+          var chart = nv.models.discreteBarChart()
+          .x(function(d) { return d.date })
+          .y(function(d) { return d.value })
+          .staggerLabels(true)
+          .tooltips(true)
+          .showValues(false)
+          .transitionDuration(250);
+
+          chart.xAxis
+          chart.yAxis
+
+          d3.select('#cities-chart svg')
+          .datum(citiesBarChart)
+          .call(chart);
+
+          nv.utils.windowResize(chart.update);
+
+          return chart;
+        });
+      }
+
+      function topStates(states) {
+        return  {
+          "state": states.stateName,
+          "jobs" : states.jobs
+        }
+      }
+
+      function renderStatesChart(topFiveStates) {
+        nv.addGraph(function() {
+          var chart = nv.models.pieChart()
+          .x(function(d) { return d.state })
+          .y(function(d) { return d.jobs })
+          .showLabels(true);
+
+          d3.select("#states-chart svg")
+          .datum(topFiveStates)
+          .transition().duration(350)
+          .call(chart);
+
+          return chart;
+        });
+      }
+
+      function renderJobsChart() {
+        nv.addGraph(function() {
+          var chart = nv.models.discreteBarChart()
+          .x(function(d) { return d.date })
+          .y(function(d) { return d.value })
+          .staggerLabels(true)
+          .tooltips(true)
+          .showValues(false)
+          .transitionDuration(250);
+
+          chart.xAxis
+          chart.yAxis
+
+          d3.select('#jobs-chart svg')
+          .datum(jobsBarChart)
+          .call(chart);
+
+          nv.utils.windowResize(chart.update);
+
+          return chart;
+        });
+      }
+
+      function renderSalaryChart() {
+        nv.addGraph(function() {
+          var chart = nv.models.discreteBarChart()
+          .x(function(d) { return d.date })
+          .y(function(d) { return d.value })
+          .staggerLabels(true)
+          .tooltips(true)
+          .showValues(false)
+          .transitionDuration(250);
+
+          chart.xAxis
+          chart.yAxis
+
+          d3.select('#salary-chart svg')
+          .datum(salaryBarChart)
+          .call(chart);
+
+          nv.utils.windowResize(chart.update);
+
+          return chart;
+        });
+      }
