@@ -47,31 +47,25 @@ $(function() {
     $('#loc-page').removeClass('no-display');
     retrieveJobStats(displayLocData);
     retrieveRelatedCareers(displayRelatedCareers);
+  });
 
-    function clearValues(){
-      nationTotal = 0;
-      stateCount = {};
-      stateAbbreviation = {};
-      citiesBarChart[0].values = [];
-      jobsBarChart[0].values = [];
-      salaryBarChart[0].values = [];
-    }
+  function clearValues(){
+    nationTotal = 0;
+    stateCount = {};
+    stateAbbreviation = {};
+    citiesBarChart[0].values = [];
+    jobsBarChart[0].values = [];
+    salaryBarChart[0].values = [];
+  }
 
-    
-    // Get you back to the landing page
-    $('.new-search-button').on('click', function(){
-      clearValues()
-      $('#progression-page').addClass('no-display');
-      $('#loc-page').addClass('no-display');
-      $('#home-page-header').removeClass('no-display');
-      $('#home-page').removeClass('no-display');
-      $('#error-page').addClass('no-display');
-    });
-
-
-
-
-
+  // Get you back to the landing page
+  $('.new-search-button').on('click', function(){
+    clearValues()
+    $('#progression-page').addClass('no-display');
+    $('#loc-page').addClass('no-display');
+    $('#home-page-header').removeClass('no-display');
+    $('#home-page').removeClass('no-display');
+    $('#error-page').addClass('no-display');
   });
 
   $('#career-search').submit(function(event) {
@@ -89,15 +83,6 @@ $(function() {
       $('#loc-page').removeClass('no-display');
       retrieveJobStats(displayLocData);
       retrieveRelatedCareers(displayRelatedCareers);
-    });
-
-    $('#re-search button').on('click', function(){
-      clearValues()
-      $('#loc-page').addClass('no-display');
-      $('#progression-page').addClass('no-display');
-      $('#error-page').addClass('no-display');
-      $('#home-page-header').removeClass('no-display');
-      $('#home-page').removeClass('no-display');
     });
   });
 
