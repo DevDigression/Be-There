@@ -45,8 +45,8 @@ $(function() {
     $('#home-page-header').addClass('no-display');
     $('#home-page').addClass('no-display');
     $('#loc-page').removeClass('no-display');
-    retrieveJobStats(displayLocData);
-    retrieveRelatedCareers(displayRelatedCareers);
+    retrieveJobStats();
+    retrieveRelatedCareers();
   });
   $('#career-search').submit(function(event) {
     event.preventDefault();
@@ -62,8 +62,8 @@ $(function() {
     userCareerQuery = $(this).closest('.related-job').find('h3').attr('class');
     $('#progression-page').addClass('no-display');
     $('#loc-page').removeClass('no-display');
-    retrieveJobStats(displayLocData);
-    retrieveRelatedCareers(displayRelatedCareers);
+    retrieveJobStats();
+    retrieveRelatedCareers();
   });
 
 
@@ -84,20 +84,11 @@ $(function() {
     $('#home-page').removeClass('no-display');
     $('#error-page').addClass('no-display');
   });
-
-
-
 });
 
 ////////////////////////////// DOC READY ENDS/////////////////////////////
 
-
-
-
-
-
-
-function retrieveJobStats (callback) {
+function retrieveJobStats () {
   const params = {
     v: "1",
     format: "json",
@@ -108,8 +99,6 @@ function retrieveJobStats (callback) {
     q: userCareerQuery,
     returnCities: true,
     returnJobTitles: true
-    // returnStates: true,
-    // admLevelRequested: 1
   }
 
   $.ajax({
@@ -124,7 +113,7 @@ function retrieveJobStats (callback) {
 // TODO:
 // Check arguments - callback
 
-function retrieveRelatedCareers (callback) {
+function retrieveRelatedCareers () {
   const params = {
     v: "1",
     format: "json",
@@ -135,8 +124,6 @@ function retrieveRelatedCareers (callback) {
     q: userCareerQuery,
     returnCities: true,
     returnJobTitles: true
-    // returnStates: true,
-    // admLevelRequested: 1
   }
 
   $.ajax({
