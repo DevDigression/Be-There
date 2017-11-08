@@ -48,15 +48,6 @@ $(function() {
     retrieveJobStats(displayLocData);
     retrieveRelatedCareers(displayRelatedCareers);
 
-    // Get you back to the landing page
-    $('.new-search-button').on('click', function(){
-      clearValues()
-      $('#progression-page').addClass('no-display');
-      $('#loc-page').addClass('no-display');
-      $('#home-page-header').removeClass('no-display');
-      $('#home-page').removeClass('no-display');
-    });
-
     function clearValues(){
       nationTotal = 0;
       stateCount = {};
@@ -66,15 +57,21 @@ $(function() {
       salaryBarChart[0].values = [];
     }
 
-
-    $('#re-search button').on('click', function(){
+    
+    // Get you back to the landing page
+    $('.new-search-button').on('click', function(){
       clearValues()
-      $('#loc-page').addClass('no-display');
       $('#progression-page').addClass('no-display');
-      $('#error-page').addClass('no-display');
+      $('#loc-page').addClass('no-display');
       $('#home-page-header').removeClass('no-display');
       $('#home-page').removeClass('no-display');
+      $('#error-page').addClass('no-display');
     });
+
+
+
+
+
   });
 
   $('#career-search').submit(function(event) {
