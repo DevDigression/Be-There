@@ -38,7 +38,7 @@ let salaryBarChart = [
 $(function() {
 
   // Type into landing form  [Map]
-  $('#loc-search').submit(function(event) {
+  $('#location-search').submit(function(event) {
     event.preventDefault();
     userCareerQuery = $('#loc-query').val();
     $('#loc-query').val("");
@@ -48,26 +48,6 @@ $(function() {
     retrieveJobStats(displayLocData);
     retrieveRelatedCareers(displayRelatedCareers);
   });
-
-  function clearValues(){
-    nationTotal = 0;
-    stateCount = {};
-    stateAbbreviation = {};
-    citiesBarChart[0].values = [];
-    jobsBarChart[0].values = [];
-    salaryBarChart[0].values = [];
-  }
-
-  // Get you back to the landing page
-  $('.new-search-button').on('click', function(){
-    clearValues()
-    $('#progression-page').addClass('no-display');
-    $('#loc-page').addClass('no-display');
-    $('#home-page-header').removeClass('no-display');
-    $('#home-page').removeClass('no-display');
-    $('#error-page').addClass('no-display');
-  });
-
   $('#career-search').submit(function(event) {
     event.preventDefault();
     userCurrentCareer = $('#career-query').val();
@@ -76,15 +56,36 @@ $(function() {
     $('#home-page').addClass('no-display');
     $('#progression-page').removeClass('no-display');
     retrieveJobProg(displayCareerProgression);
-
-    $('#jobs-list').on('click', 'button', function(event){
-      userCareerQuery = $(this).closest('.related-job').find('h3').attr('class');
-      $('#progression-page').addClass('no-display');
-      $('#loc-page').removeClass('no-display');
-      retrieveJobStats(displayLocData);
-      retrieveRelatedCareers(displayRelatedCareers);
-    });
   });
+
+  $('#jobs-list').on('click', 'button', function(event){
+    userCareerQuery = $(this).closest('.related-job').find('h3').attr('class');
+    $('#progression-page').addClass('no-display');
+    $('#loc-page').removeClass('no-display');
+    retrieveJobStats(displayLocData);
+    retrieveRelatedCareers(displayRelatedCareers);
+  });
+
+
+
+
+
+  // Get you back to the landing page
+  $('.new-search-button').on('click', function(){
+    nationTotal = 0;
+    stateCount = {};
+    stateAbbreviation = {};
+    citiesBarChart[0].values = [];
+    jobsBarChart[0].values = [];
+    salaryBarChart[0].values = [];
+    $('#progression-page').addClass('no-display');
+    $('#loc-page').addClass('no-display');
+    $('#home-page-header').removeClass('no-display');
+    $('#home-page').removeClass('no-display');
+    $('#error-page').addClass('no-display');
+  });
+
+
 
 });
 

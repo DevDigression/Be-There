@@ -101,13 +101,13 @@ span {
 	margin: 10px auto;
 }
 
-#new-loc-search, #new-career-search, #re-search {
+#new-location-search, #new-career-search, #re-search {
 	width: 100%;
 	margin: 0 auto;
 	clear: both;
 }
 
-#new-loc-search button, #new-career-search button, #re-search button {
+#new-location-search button, #new-career-search button, #re-search button {
 	width: 100px;
 	height: 35px;
 	display: block;
@@ -146,7 +146,7 @@ span {
 
 /*********************** Locations Page / Map *************************/
 
-#loc-page { 
+#loc-page {
 	width: 80%;
 	margin: 0 auto;
 }
@@ -255,7 +255,7 @@ span {
 
 .related-job h3 {
 	color: #000;
-}  
+}
 
 /************* MAP **************/
 
@@ -283,16 +283,16 @@ span {
 		fill-opacity:0.5;
 }
 
-#tooltip {   
-		position: absolute;           
+#tooltip {
+		position: absolute;
 		text-align: center;
-		padding: 20px;             
+		padding: 20px;
 		margin: 10px;
-		font: 12px sans-serif;        
-		background: lightsteelblue;   
-		border: 1px;      
-		border-radius: 2px;           
-		pointer-events: none;         
+		font: 12px sans-serif;
+		background: lightsteelblue;
+		border: 1px;
+		border-radius: 2px;
+		pointer-events: none;
 }
 
 #tooltip h4 {
@@ -339,9 +339,9 @@ span {
 	width: 100%;
 }
 
-#states-chart svg { 
+#states-chart svg {
 	width: 300px;
-	height: 300px; 
+	height: 300px;
 	display: inline-block;
 }
 
@@ -355,19 +355,19 @@ span {
 }
 
 #cities-chart rect {
-  fill: #F17F49; 
-  stroke: #F17F49; 
+  fill: #F17F49;
+  stroke: #F17F49;
 }
 
-#cities-chart svg { 
-	width: 100%; 
+#cities-chart svg {
+	width: 100%;
 	height: 300px;
 	display: inline-block;
 }
 
 /*********************** Jobs Progression Page *************************/
 
-#progression-page { 
+#progression-page {
 	width: 80%;
 	margin: 0 auto;
 }
@@ -412,8 +412,8 @@ span {
 }
 
 #jobs-chart rect {
-  fill: #EAEA08; 
-  stroke: #EAEA08; 
+  fill: #EAEA08;
+  stroke: #EAEA08;
 }
 
 #salary-chart rect {
@@ -421,8 +421,8 @@ span {
 	stroke: #009C8E;
 }
 
-#jobs-chart svg, #salary-chart svg { 
-	width: 100%; 
+#jobs-chart svg, #salary-chart svg {
+	width: 100%;
 	height: 300px;
 	display: inline-block;
 }
@@ -554,8 +554,8 @@ input {
 	display: block;
 }
 
-#cities-chart svg { 
-	max-width: 100%; 
+#cities-chart svg {
+	max-width: 100%;
 	height: 300px;
 	display: block;
 }
@@ -582,8 +582,8 @@ input {
 	float: none;
 }
 
-#jobs-chart svg, #salary-chart svg { 
-	width: 100%; 
+#jobs-chart svg, #salary-chart svg {
+	width: 100%;
 	height: 300px;
 	display: block;
 }
