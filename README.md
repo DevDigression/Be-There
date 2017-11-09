@@ -4,13 +4,11 @@
 
 ![alt text](https://github.com/DevDigression/Be-There/blob/master/img/Be%20There%20Banner.png "Be There - For Your Career")
 
-#### Be There 
-is designed to help users plan their next career move by obtaining useful information regarding job trends
+Be There is designed to help users plan their next career move by obtaining useful information regarding job trends
 across the United States.
-The app makes AJAX calls using the Glassdoor API for job statistics.
+The Glassdoor API is utilized for job statistics.
 
-#### Be There 
-has two main search functions which users can take advantage of:
+Be There has two main search functions which users can take advantage of:
 
 ![alt text](https://github.com/DevDigression/Be-There/blob/master/img/Be%20There%20Homepage%20Form.png "Be There Landing Page Form")
 
@@ -30,9 +28,16 @@ will bring the user to glassdoor.com with the job title pre-filled for search
 ### Jobs Progression
 - Users can search for jobs related to their current position and obtain information about these career fields
 - Users will be given a list of the top five most commonly held positions by others with that current career;
-clicking the 'find job' button will perform a 'Job Locations' search for that specific job
+clicking the 'Find This Job' button will perform a 'Job Locations' search for that specific job
 
 ![alt text](https://github.com/DevDigression/Be-There/blob/master/img/Be%20There%20Jobs%20Progression.gif "Be There Jobs Progression")
+
+## Technologies
+
+- HTML5
+- CSS3
+- Javascript/jQuery
+- d3.js
 
 This app comprehensively utilizes the frontend technologies of HTML5, CSS3, and Javascript, with the addition of
 jQuery for ease of functionality
