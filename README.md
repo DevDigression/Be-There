@@ -1,6 +1,6 @@
-#H1 Be There - For Your Career
+# H1 Be There - For Your Career
 
-#H2 Thinkful Frontend Capstone Project
+# H2 Thinkful Frontend Capstone Project
 
 ![alt text](https://github.com/DevDigression/Be-There/blob/master/img/Be%20There%20Banner.png "Be There - For Your Career")
 
@@ -12,7 +12,7 @@ Be There has two main search functions which users can take advantage of:
 
 ![alt text](https://github.com/DevDigression/Be-There/blob/master/img/Be%20There%20Homepage%20Form.png "Be There Landing Page Form")
 
-#H3 Job Locations
+# H3 Job Locations
 - Users can search for a career field and obtain location data for cities and states with the most jobs in that field
 - Users will also receive a list of the specific job titles within this field; clicking one of the job titles 
 will bring the user to glassdoor.com with the job title pre-filled for search
@@ -25,7 +25,7 @@ will bring the user to glassdoor.com with the job title pre-filled for search
 
 ![alt text](https://github.com/DevDigression/Be-There/blob/master/img/Be%20There%20Related%20Jobs.png "Be There Related Jobs")
 
-#H3 Jobs Progression
+# H3 Jobs Progression
 - Users can search for jobs related to their current position and obtain information about these career fields
 - Users will be given a list of the top five most commonly held positions by others with that current career;
 clicking the 'find job' button will perform a 'Job Locations' search for that specific job
