@@ -4,11 +4,13 @@
 
 ![alt text](https://github.com/DevDigression/Be-There/blob/master/img/Be%20There%20Banner.png "Be There - For Your Career")
 
-Be There is designed to help users plan their next career move by obtaining useful information regarding job trends
+#### Be There 
+is designed to help users plan their next career move by obtaining useful information regarding job trends
 across the United States.
 The app makes AJAX calls using the Glassdoor API for job statistics.
 
-Be There has two main search functions which users can take advantage of:
+#### Be There 
+has two main search functions which users can take advantage of:
 
 ![alt text](https://github.com/DevDigression/Be-There/blob/master/img/Be%20There%20Homepage%20Form.png "Be There Landing Page Form")
 
