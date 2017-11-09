@@ -1,6 +1,8 @@
-Be There - For Your Career
+#H1 Be There - For Your Career
 
-Thinkful Frontend Capstone Project
+#H2 Thinkful Frontend Capstone Project
+
+![alt text](https://github.com/DevDigression/Be-There/blob/master/img/Be%20There%20Banner.png "Be There - For Your Career")
 
 Be There is designed to help users plan their next career move by obtaining useful information regarding job trends
 across the United States.
@@ -8,16 +10,27 @@ The app makes AJAX calls using the Glassdoor API for job statistics.
 
 Be There has two main search functions which users can take advantage of:
 
-Job Locations
+![alt text](https://github.com/DevDigression/Be-There/blob/master/img/Be%20There%20Homepage%20Form.png "Be There Landing Page Form")
+
+#H3 Job Locations
 - Users can search for a career field and obtain location data for cities and states with the most jobs in that field
 - Users will also receive a list of the specific job titles within this field; clicking one of the job titles 
 will bring the user to glassdoor.com with the job title pre-filled for search
 
-Jobs Progression
+![alt text](https://github.com/DevDigression/Be-There/blob/master/img/Be%20There%20Map.png "Be There Data Map")
+
+![alt text](https://github.com/DevDigression/Be-There/blob/master/img/Be%20There%20States.png "Be There States Chart")
+
+![alt text](https://github.com/DevDigression/Be-There/blob/master/img/Be%20There%20Cities.png "Be There Cities Chart")
+
+![alt text](https://github.com/DevDigression/Be-There/blob/master/img/Be%20There%20Related%20Jobs.png "Be There Related Jobs")
+
+#H3 Jobs Progression
 - Users can search for jobs related to their current position and obtain information about these career fields
 - Users will be given a list of the top five most commonly held positions by others with that current career;
 clicking the 'find job' button will perform a 'Job Locations' search for that specific job
 
+![alt text](https://github.com/DevDigression/Be-There/blob/master/img/Be%20There%20Jobs%20Progression.gif "Be There Jobs Progression")
 
 This app comprehensively utilizes the frontend technologies of HTML5, CSS3, and Javascript, with the addition of
 jQuery for ease of functionality
