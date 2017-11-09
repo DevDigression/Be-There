@@ -4,11 +4,11 @@
 
 ![alt text](https://github.com/DevDigression/Be-There/blob/master/img/Be%20There%20Banner.png "Be There - For Your Career")
 
-Be There is designed to help users plan their next career move by obtaining useful information regarding job trends
+**Be There** is designed to help users plan their next career move by obtaining useful information regarding job trends
 across the United States.
-The Glassdoor API is utilized for job statistics.
+The **Glassdoor API** is utilized for job statistics.
 
-Be There has two main search functions which users can take advantage of:
+**Be There** has two main search functions which users can take advantage of:
 
 ![alt text](https://github.com/DevDigression/Be-There/blob/master/img/Be%20There%20Homepage%20Form.png "Be There Landing Page Form")
 
@@ -34,15 +34,10 @@ clicking the 'Find This Job' button will perform a 'Job Locations' search for th
 
 ## Technologies
 
-- HTML5
-- CSS3
-- Javascript/jQuery
-- d3.js
+This app comprehensively utilizes the frontend technologies of **HTML5**, **CSS3**, and **Javascript**, with the addition of
+**jQuery** for ease of functionality
 
-This app comprehensively utilizes the frontend technologies of HTML5, CSS3, and Javascript, with the addition of
-jQuery for ease of functionality
-
-d3.js brings together this functionality by displaying the data retrieved in meaningful ways to the user. 
+**d3.js** brings together this functionality by displaying the data retrieved in meaningful ways to the user. 
  - An SVG map is used to display job density throughout the country. The map also offers specific statistics for 
 the total number of jobs in each state as well as the nation as a whole
  - SVG charts and graphs are rendered with job-related information which aids users by offering a visual aid as well as
