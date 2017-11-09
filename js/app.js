@@ -124,7 +124,7 @@ function displayLocData (results) {
   if (!jobs.length) {
     $('#loc-page').addClass('no-display');
     $('#error-page').removeClass('no-display');
-    $('#error-page-h2').text(`Sorry, no results found for ${userCareerQuery}.
+    $('#error-page-header').text(`Sorry, no results found for ${userCareerQuery}.
       Please try searching again.`);
     } else {
       $('#top-states-header').text(`Top 5 States for ${capitalize(userCareerQuery)}`);
