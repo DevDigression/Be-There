@@ -17,7 +17,7 @@ Be There has two main search functions which users can take advantage of:
 - Users will also receive a list of the specific job titles within this field; clicking one of the job titles 
 will bring the user to glassdoor.com with the job title pre-filled for search
 
-![alt text](https://github.com/DevDigression/Be-There/blob/master/img/Be%20There%20Map.png "Be There Data Map")
+![alt text](https://github.com/DevDigression/Be-There/blob/master/img/Be%20There%20Map.gif "Be There Data Map")
 
 ![alt text](https://github.com/DevDigression/Be-There/blob/master/img/Be%20There%20States.png "Be There States Chart")
 
