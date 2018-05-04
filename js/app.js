@@ -48,8 +48,6 @@ $(function() {
     $("#home-page-header").addClass("no-display");
     $("#home-page").addClass("no-display");
     $("#loc-page").removeClass("no-display");
-    //  retrieveCareerStats("displayLocData");
-    //  retrieveCareerStats("displayRelatedCareers");
     addStateJobs(jobsData[userCareerQuery]);
     displayLocData(jobsData[userCareerQuery]);
   });
@@ -235,6 +233,7 @@ function capitalize(string) {
 /******************Jobs Stats**********************/
 /**************************************************/
 function displayLocData(results) {
+  console.log(results);
   let jobs = results;
   if (!jobs) {
     $("#loc-page").addClass("no-display");
@@ -250,10 +249,10 @@ function displayLocData(results) {
       `How ${capitalize(userCareerQuery)} compares to other web fields`
     );
 
-    const stateResults = addStateJobs(results);
+    const stateResults = results;
     let topFiveStates = Object.keys(stateResults).map(function(state) {
       return {
-        stateName: state,
+        stateName: states[state],
         jobs: this[state]
       };
     }, stateResults);
@@ -266,7 +265,6 @@ function displayLocData(results) {
     );
     $("#states-list").html(statesList);
 
-    console.log(statesTopFive);
     for (let i = 0; i < statesTopFive.length; i++) {
       citiesBarChart[0].values.push({
         date: statesTopFive[i].stateName,
@@ -324,6 +322,7 @@ function renderStatesResults(state) {
 }
 
 function addStateJobs(career) {
+  console.log(career);
   for (let state in career) {
     stateCount[states[state]] = career[state];
     stateAbbreviation[state] = career[state];
