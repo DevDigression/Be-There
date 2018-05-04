@@ -50,8 +50,8 @@ $(function() {
     $("#loc-page").removeClass("no-display");
     //  retrieveCareerStats("displayLocData");
     //  retrieveCareerStats("displayRelatedCareers");
-    addStateJobs(jobs[userCareerQuery]);
-    displayLocData(jobs[userCareerQuery]);
+    addStateJobs(jobsData[userCareerQuery]);
+    displayLocData(jobsData[userCareerQuery]);
   });
 
   $("#career-search").submit(function(event) {
@@ -63,17 +63,6 @@ $(function() {
     $("#progression-page").removeClass("no-display");
     retrieveJobProg(displayCareerProgression);
   });
-
-  // $("#jobs-list").on("click", "button", function(event) {
-  //   userCareerQuery = $(this)
-  //     .closest(".related-job")
-  //     .find("h3")
-  //     .attr("class");
-  //   $("#progression-page").addClass("no-display");
-  //   $("#loc-page").removeClass("no-display");
-  //   retrieveCareerStats("displayLocData");
-  //   retrieveCareerStats("displayRelatedCareers");
-  // });
 
   // Get you back to the landing page
   $(".new-search-button").on("click", function() {
@@ -88,18 +77,11 @@ $(function() {
     $("#home-page-header").removeClass("no-display");
     $("#home-page").removeClass("no-display");
     $("#error-page").addClass("no-display");
+    $("#svg-container").html(
+      `<svg id="statesvg" role="graphics-datachart"><g id="canvas"></g></svg>`
+    );
   });
 });
-
-// function retrieveCareerStats(callback) {
-//   const params = {
-//     action: "jobs-stats",
-//     q: userCareerQuery,
-//     returnCities: true,
-//     returnJobTitles: true
-//   };
-//   requestData(params, callback);
-// }
 
 function retrieveJobProg(callback) {
   const params = {
@@ -120,20 +102,20 @@ function requestData(params, callback) {
   });
 }
 
-function displayRelatedCareers(results) {
-  $("#related-careers h3").text("Jobs related to " + userCareerQuery);
-  let careers = results.response.jobTitles;
-  const careersList = careers.map((item, index) => renderRelatedCareers(item));
-  $("#related-careers-list").html(careersList);
-}
+// function displayRelatedCareers(results) {
+//   $("#related-careers h3").text("Jobs related to " + userCareerQuery);
+//   let careers = results.response.jobTitles;
+//   const careersList = careers.map((item, index) => renderRelatedCareers(item));
+//   $("#related-careers-list").html(careersList);
+// }
 
-function renderRelatedCareers(result) {
-  return `
-      <li><a href="https://www.glassdoor.com/Job/jobs.htm?sc.keyword=${
-        result.jobTitle
-      }" target="_blank">${result.jobTitle}</a> (${result.numJobs} Jobs)</li>
-      `;
-}
+// function renderRelatedCareers(result) {
+//   return `
+//       <li><a href="https://www.glassdoor.com/Job/jobs.htm?sc.keyword=${
+//         result.jobTitle
+//       }" target="_blank">${result.jobTitle}</a> (${result.numJobs} Jobs)</li>
+//       `;
+// }
 
 function displayCareerProgression(results) {
   let jobs = results.response.results;
@@ -180,7 +162,9 @@ function renderJobProg(job) {
   ) / 100}%</li>
         <li>Jobs available: ${job.nationalJobCount}</li>
         <li>Median Salary: $${job.medianSalary}</li>
-        <button class="findJob">Find this Job</button>
+        <a href="https://www.glassdoor.com/Job/jobs.htm?suggestCount=0&suggestChosen=false&clickSource=searchBtn&typedKeyword=teacher&sc.keyword=${
+          job.nextJobTitle
+        }" target="_blank"><button class="findJob">Find this Job</button></a>
         </div>
         `;
 }
@@ -251,8 +235,6 @@ function capitalize(string) {
 /******************Jobs Stats**********************/
 /**************************************************/
 function displayLocData(results) {
-  console.log(results);
-  // let jobs = results.response.jobTitles;
   let jobs = results;
   if (!jobs) {
     $("#loc-page").addClass("no-display");
@@ -265,11 +247,10 @@ function displayLocData(results) {
       `Top 5 States for ${capitalize(userCareerQuery)}`
     );
     $("#top-cities-header").text(
-      `Top 5 Cities for ${capitalize(userCareerQuery)}`
+      `How ${capitalize(userCareerQuery)} compares to other web fields`
     );
 
     const stateResults = addStateJobs(results);
-    console.log(stateResults);
     let topFiveStates = Object.keys(stateResults).map(function(state) {
       return {
         stateName: state,
@@ -285,38 +266,51 @@ function displayLocData(results) {
     );
     $("#states-list").html(statesList);
 
-    const topFiveStatesList = statesTopFive.map((item, index) =>
-      topStates(item)
-    );
-    renderStatesChart(topFiveStatesList);
-
-    let cities = results.response.cities;
-    const citiesTopFive = [];
-    for (let i = 0; i < 5; i++) {
-      citiesTopFive.push(cities[i]);
+    console.log(statesTopFive);
+    for (let i = 0; i < statesTopFive.length; i++) {
       citiesBarChart[0].values.push({
-        date: cities[i].name,
-        value: cities[i].numJobs
+        date: statesTopFive[i].stateName,
+        value: statesTopFive[i].jobs
       });
     }
     renderCitiesChart();
-    $("#states-chart-title").text("Number of Jobs by State");
-    $("#cities-chart-title").text("Number of Jobs by City");
 
-    const citiesList = citiesTopFive.map((item, index) =>
+    let jobTotals = {};
+    let jobTypes = Object.keys(jobsData);
+    jobTypes.forEach(type => {
+      let jobTotal = 0;
+      for (let state in jobsData[type]) {
+        jobTotal += jobsData[type][state];
+      }
+      jobTotals[type] = jobTotal;
+    });
+
+    let fieldTotals = jobTypes.map(function(type) {
+      return {
+        field: type,
+        jobs: jobTotals[type]
+      };
+    });
+    // const topFiveStatesList = jobTypes.map((item, index) => topStates(item));
+    renderStatesChart(fieldTotals);
+
+    $("#states-chart-title").text("Number of Jobs by State");
+    $("#cities-chart-title").text("Fields in Web Development");
+
+    console.log(fieldTotals);
+    const citiesList = fieldTotals.map((item, index) =>
       renderCitiesResults(item)
     );
     $("#cities-list").html(citiesList);
   }
 }
 
-function renderCitiesResults(city) {
-  let cityState = city.stateName;
+function renderCitiesResults(job) {
   return `
-      <li class="city-result">${city.name}</li>
-      <li class="city-percent">${city.numJobs} Jobs (${Math.round(
-    city.numJobs / stateCount[cityState] * 100
-  )}% of ${cityState})</li>
+      <li class="city-result">${capitalize(job.field)}</li>
+      <li class="city-percent">${job.jobs} Jobs (${Math.round(
+    job.jobs / nationTotal * 100
+  )}% of nation)</li>
       `;
 }
 
@@ -328,30 +322,6 @@ function renderStatesResults(state) {
   )}% of nation)</li>
       `;
 }
-
-// function addStateJobs(results) {
-//   let statesList = results.response.cities;
-//   for (let state of statesList) {
-//     if (
-//       !stateCount[state.stateName] &&
-//       !stateAbbreviation[state.stateAbbreviation]
-//     ) {
-//       stateCount[state.stateName] = state.numJobs;
-//       stateAbbreviation[state.stateAbbreviation] = state.numJobs;
-//     } else {
-//       stateCount[state.stateName] += state.numJobs;
-//       stateAbbreviation[state.stateAbbreviation] += state.numJobs;
-//     }
-//     nationTotal += state.numJobs;
-//   }
-
-//   uStates.draw(
-//     "#statesvg",
-//     calculateSampleData(stateAbbreviation),
-//     tooltipHtml
-//   );
-//   return stateCount;
-// }
 
 function addStateJobs(career) {
   for (let state in career) {
@@ -465,7 +435,7 @@ function renderCitiesChart() {
     chart.yAxis;
 
     d3
-      .select("#cities-chart svg")
+      .select("#states-chart svg")
       .datum(citiesBarChart)
       .call(chart);
 
@@ -482,12 +452,13 @@ function topStates(states) {
   };
 }
 
-function renderStatesChart(topFiveStates) {
+function renderStatesChart(totals) {
+  console.log(totals);
   nv.addGraph(function() {
     var chart = nv.models
       .pieChart()
       .x(function(d) {
-        return d.state;
+        return d.field;
       })
       .y(function(d) {
         return d.jobs;
@@ -495,8 +466,8 @@ function renderStatesChart(topFiveStates) {
       .showLabels(true);
 
     d3
-      .select("#states-chart svg")
-      .datum(topFiveStates)
+      .select("#cities-chart svg")
+      .datum(totals)
       .transition()
       .duration(350)
       .call(chart);

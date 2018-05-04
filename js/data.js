@@ -51,7 +51,7 @@ var states = {
   WY: "Wyoming"
 };
 
-var jobs = {
+var jobsData = {
   frontend: {
     AL: 11,
     AK: 22,
@@ -147,7 +147,7 @@ var jobs = {
     SC: 40,
     SD: 41,
     TN: 42,
-    TX: 600,
+    TX: 100,
     UT: 540,
     VA: 150,
     VT: 160,
@@ -208,4 +208,6 @@ var jobs = {
     WV: 49,
     WY: 50
   }
+  // "data science": {},
+  // "full stack": {}
 };

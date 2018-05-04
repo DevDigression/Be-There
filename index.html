@@ -21,9 +21,15 @@
 		<div id="home-page">
 			<form id="location-search" role="form">
 				<h3>Find your destination</h3>
-				<p>Looking to make a move?<br>Search for a career, and go to where the jobs are!</p>
+				<p>Already a dev and looking to make a move?<br>Choose a field, and go to where the jobs are!</p>
 				<div class="search">
-					<input id="loc-query" type="text" placeholder="Career Field">
+					<select id="loc-query">
+			  			<option value="">Select Field</option>			
+ 				 		<option value="frontend">Frontend</option>
+  						<option value="backend">Backend</option>
+  						<option value="mobile">Mobile</option>
+  					</select>
+<!-- 					<input id="loc-query" type="text" placeholder="Career Field"> -->
 					<button role="button">Search</button>
 				</div>
 			</form>
@@ -44,7 +50,9 @@
 			<h2>Find your new location</h2>
 			<div id="map">
 				<div id="tooltip"></div>
+				<div id="svg-container">
 				<svg id="statesvg" role="graphics-datachart"><g id="canvas"></g></svg>
+				</div>
 			</div>
 			<div id="top-states">
 				<div class="list-container left">
@@ -64,12 +72,6 @@
 				<div id="cities-graph" class="left">
 					<h4 id="cities-chart-title"></h4>
 					<div id="cities-chart" class="left" role="graphics-datachart"><svg /></div>
-				</div>
-			</div>
-			<div id="related-careers">
-				<div id="related-careers-container">
-					<h3 id="related-careers-header"></h3>
-					<ul id="related-careers-list" role="list"></ul>
 				</div>
 			</div>
 			<div class="new-search" id="new-location-search">
