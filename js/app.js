@@ -13,6 +13,7 @@ let userCurrentCareer;
 // Map totals -> percentage
 let stateTotal = 0;
 let nationTotal = 0;
+let jobSum = 0;
 
 let stateCount = {};
 let stateAbbreviation = {};
@@ -289,7 +290,11 @@ function displayLocData(results) {
         jobs: jobTotals[type]
       };
     });
-    // const topFiveStatesList = jobTypes.map((item, index) => topStates(item));
+
+    for (let field in jobTotals) {
+      jobSum += jobTotals[field];
+    }
+
     renderStatesChart(fieldTotals);
 
     $("#states-chart-title").text("Number of Jobs by State");
@@ -307,8 +312,8 @@ function renderCitiesResults(job) {
   return `
       <li class="city-result">${capitalize(job.field)}</li>
       <li class="city-percent">${job.jobs} Jobs (${Math.round(
-    job.jobs / nationTotal * 100
-  )}% of nation)</li>
+    job.jobs / jobSum * 100
+  )}% of dev jobs)</li>
       `;
 }
 
