@@ -101,22 +101,8 @@ function requestData(params, callback) {
   });
 }
 
-// function displayRelatedCareers(results) {
-//   $("#related-careers h3").text("Jobs related to " + userCareerQuery);
-//   let careers = results.response.jobTitles;
-//   const careersList = careers.map((item, index) => renderRelatedCareers(item));
-//   $("#related-careers-list").html(careersList);
-// }
-
-// function renderRelatedCareers(result) {
-//   return `
-//       <li><a href="https://www.glassdoor.com/Job/jobs.htm?sc.keyword=${
-//         result.jobTitle
-//       }" target="_blank">${result.jobTitle}</a> (${result.numJobs} Jobs)</li>
-//       `;
-// }
-
 function displayCareerProgression(results) {
+  console.log(results);
   let jobs = results.response.results;
   if (!jobs.length) {
     $("#progression-page").addClass("no-display");
@@ -161,12 +147,13 @@ function renderJobProg(job) {
   ) / 100}%</li>
         <li>Jobs available: ${job.nationalJobCount}</li>
         <li>Median Salary: $${job.medianSalary}</li>
-        <a href="https://www.glassdoor.com/Job/jobs.htm?suggestCount=0&suggestChosen=false&clickSource=searchBtn&typedKeyword=teacher&sc.keyword=${
-          job.nextJobTitle
-        }" target="_blank"><button class="findJob">Find this Job</button></a>
+
         </div>
         `;
 }
+
+//   <a href="https://www.glassdoor.com/Job/jobs.htm?suggestCount=0&suggestChosen=false&clickSource=searchBtn&typedKeyword=teacher&sc.keyword=${
+//          job.nextJobTitle}" target="_blank"><button class="findJob">Find this Job</button></a>
 
 function renderJobsChart() {
   nv.addGraph(function() {
