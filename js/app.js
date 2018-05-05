@@ -1,7 +1,7 @@
 const GLASSDOOR_URL = "https://api.glassdoor.com/api/api.htm";
 const GLASSDOOR_PARAMS = {
   v: "1",
-  format: "jsonp",
+  format: "json",
   "t.p": "213919",
   "t.k": "dckaIJmhJoa"
 };
