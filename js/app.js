@@ -93,7 +93,7 @@ function retrieveJobProg(callback) {
 
 function requestData(params, callback) {
   $.ajax({
-    url: GLASSDOOR_URL,
+    url: "https://api.glassdoor.com/api/api.htm",
     type: "GET",
     data: Object.assign(params, GLASSDOOR_PARAMS),
     dataType: "jsonp",
@@ -147,13 +147,12 @@ function renderJobProg(job) {
   ) / 100}%</li>
         <li>Jobs available: ${job.nationalJobCount}</li>
         <li>Median Salary: $${job.medianSalary}</li>
-
+        <a href="https://www.glassdoor.com/Job/jobs.htm?suggestCount=0&suggestChosen=false&clickSource=searchBtn&typedKeyword=teacher&sc.keyword=${
+          job.nextJobTitle
+        }" target="_blank"><button class="findJob">Find this Job</button></a>
         </div>
         `;
 }
-
-//   <a href="https://www.glassdoor.com/Job/jobs.htm?suggestCount=0&suggestChosen=false&clickSource=searchBtn&typedKeyword=teacher&sc.keyword=${
-//          job.nextJobTitle}" target="_blank"><button class="findJob">Find this Job</button></a>
 
 function renderJobsChart() {
   nv.addGraph(function() {
