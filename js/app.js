@@ -94,7 +94,7 @@ function retrieveJobProg(callback) {
 function requestData(params, callback) {
   $.ajax({
     url: "https://www.glassdoor.com/Job/api/json/search/jobProgression.htm",
-    header: { "Content-Security-Policy": "upgrade-insecure-requests" },
+    headers: { "Content-Security-Policy": "upgrade-insecure-requests" },
     type: "GET",
     data: Object.assign(params, GLASSDOOR_PARAMS),
     dataType: "jsonp",
