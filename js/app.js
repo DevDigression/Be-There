@@ -97,7 +97,7 @@ function requestData(params, callback) {
     type: "GET",
     headers: { "Content-Security-Policy": "upgrade-insecure-requests" },
     data: Object.assign(params, GLASSDOOR_PARAMS),
-    dataType: "json",
+    dataType: "jsonp",
     jsonpCallback: callback
   });
 }
