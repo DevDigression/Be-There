@@ -60,7 +60,7 @@ $(function() {
     $("#home-page-header").addClass("no-display");
     $("#home-page").addClass("no-display");
     $("#progression-page").removeClass("no-display");
-    retrieveJobProg(displayCareerProgression);
+    retrieveJobProg(userCurrentCareer);
   });
 
   // Get you back to the landing page
@@ -82,21 +82,22 @@ $(function() {
   });
 });
 
-function retrieveJobProg(callback) {
+function retrieveJobProg(userCareer) {
   const params = {
     action: "jobs-prog",
-    jobTitle: userCurrentCareer,
+    jobTitle: userCareer,
     countryId: 1
   };
-  requestData();
+  requestData(params);
 }
 
-function requestData() {
+function requestData(params) {
   $.ajax({
     method: "GET",
     url: "https://be-there-server.herokuapp.com/",
+    data: Object.assign(params, GLASSDOOR_PARAMS),
     success: data => {
-      console.log(data);
+      displayCareerProgression(data);
     },
     dataType: "json",
     contentType: "application/json"
@@ -115,7 +116,6 @@ function requestData() {
 // }
 
 function displayCareerProgression(results) {
-  console.log(results);
   let jobs = results.response.results;
   if (!jobs.length) {
     $("#progression-page").addClass("no-display");
