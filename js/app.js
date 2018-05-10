@@ -88,19 +88,31 @@ function retrieveJobProg(callback) {
     jobTitle: userCurrentCareer,
     countryId: 1
   };
-  requestData(params, "displayCareerProgression");
+  requestData();
 }
 
-function requestData(params, callback) {
+function requestData() {
   $.ajax({
-    url: "https://www.glassdoor.com/Job/api/json/search/jobProgression.htm",
-    type: "GET",
-    headers: { "Content-Security-Policy": "upgrade-insecure-requests" },
-    data: Object.assign(params, GLASSDOOR_PARAMS),
-    dataType: "jsonp",
-    jsonpCallback: callback
+    method: "GET",
+    url: "/",
+    success: data => {
+      displayCareerProgression(data);
+    },
+    dataType: "json",
+    contentType: "application/json"
   });
 }
+
+// function requestData(params, callback) {
+//   $.ajax({
+//     url: "https://www.glassdoor.com/Job/api/json/search/jobProgression.htm",
+//     type: "GET",
+//     headers: { "Content-Security-Policy": "upgrade-insecure-requests" },
+//     data: Object.assign(params, GLASSDOOR_PARAMS),
+//     dataType: "jsonp",
+//     jsonpCallback: callback
+//   });
+// }
 
 function displayCareerProgression(results) {
   console.log(results);
