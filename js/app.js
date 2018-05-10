@@ -94,9 +94,9 @@ function retrieveJobProg(callback) {
 function requestData() {
   $.ajax({
     method: "GET",
-    url: "/localhost:8080",
+    url: "/",
     success: data => {
-      displayCareerProgression(data);
+      console.log(data);
     },
     dataType: "json",
     contentType: "application/json"
