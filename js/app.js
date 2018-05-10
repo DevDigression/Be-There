@@ -92,10 +92,10 @@ function retrieveJobProg(userCareer) {
 }
 
 function requestData(params) {
+  console.log(params);
   $.ajax({
     method: "GET",
-    url: "https://be-there-server.herokuapp.com/",
-    data: Object.assign(params, GLASSDOOR_PARAMS),
+    url: "https://be-there-server.herokuapp.com/" + params.jobTitle,
     success: data => {
       displayCareerProgression(data);
     },
