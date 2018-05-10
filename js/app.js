@@ -94,7 +94,7 @@ function retrieveJobProg(callback) {
 function requestData() {
   $.ajax({
     method: "GET",
-    url: "/",
+    url: "https://be-there-server.herokuapp.com/",
     success: data => {
       console.log(data);
     },
