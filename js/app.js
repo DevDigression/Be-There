@@ -42,16 +42,6 @@ let salaryBarChart = [
 ////////////////////////////// DOC READY ENDS/////////////////////////////
 
 $(function() {
-  $.ajax({
-    method: "GET",
-    url: "https://be-there-server.herokuapp.com/",
-    success: data => {
-      console.log("Server active");
-    },
-    dataType: "json",
-    contentType: "application/json"
-  });
-
   $("#location-search").submit(function(event) {
     event.preventDefault();
     userCareerQuery = $("#loc-query").val();
