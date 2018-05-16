@@ -42,6 +42,16 @@ let salaryBarChart = [
 ////////////////////////////// DOC READY ENDS/////////////////////////////
 
 $(function() {
+  $.ajax({
+    method: "GET",
+    url: "https://be-there-server.herokuapp.com/",
+    success: data => {
+      console.log("Server active");
+    },
+    dataType: "json",
+    contentType: "application/json"
+  });
+
   $("#location-search").submit(function(event) {
     event.preventDefault();
     userCareerQuery = $("#loc-query").val();
@@ -92,7 +102,6 @@ function retrieveJobProg(userCareer) {
 }
 
 function requestData(params) {
-  console.log(params);
   $.ajax({
     method: "GET",
     url: "https://be-there-server.herokuapp.com/" + params.jobTitle,
@@ -103,17 +112,6 @@ function requestData(params) {
     contentType: "application/json"
   });
 }
-
-// function requestData(params, callback) {
-//   $.ajax({
-//     url: "https://www.glassdoor.com/Job/api/json/search/jobProgression.htm",
-//     type: "GET",
-//     headers: { "Content-Security-Policy": "upgrade-insecure-requests" },
-//     data: Object.assign(params, GLASSDOOR_PARAMS),
-//     dataType: "jsonp",
-//     jsonpCallback: callback
-//   });
-// }
 
 function displayCareerProgression(results) {
   let jobs = results.response.results;
